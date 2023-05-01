@@ -48,6 +48,11 @@ void MainUpdate::Update()
 		rcPoint.left += value;
 		rcPoint.right += value;
 	}
+
+	if (GetAsyncKeyState(VK_SPACE))
+	{
+
+	}
 }
 
 void MainUpdate::Render()
