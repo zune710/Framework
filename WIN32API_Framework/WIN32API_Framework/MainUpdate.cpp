@@ -19,6 +19,8 @@ void MainUpdate::Start()
 
 	rcPoint.right = 200;
 	rcPoint.bottom = 200;
+
+	rcPoint2 = { 145, 145, 155, 155 };
 }
 
 void MainUpdate::Update()
@@ -51,6 +53,16 @@ void MainUpdate::Update()
 
 	if (GetAsyncKeyState(VK_SPACE))
 	{
+		
+		rcPoint2 = { 145, 145, 155, 155 };
+
+		while (rcPoint2.left < 1000)
+		{
+
+			rcPoint2.left += value;
+			rcPoint2.right += value;
+			InvalidateRect(g_hWnd, NULL, true);
+		}
 
 	}
 }
@@ -59,11 +71,17 @@ void MainUpdate::Render()
 {
 	//Rectangle(m_hdc, 0, 0, 1280, 720);
 	
-	Rectangle(m_hdc, 
+	/*Rectangle(m_hdc, 
 		rcPoint.left, 
 		rcPoint.top, 
 		rcPoint.right, 
-		rcPoint.bottom);
+		rcPoint.bottom);*/
+
+	Ellipse(m_hdc,
+		rcPoint2.left,
+		rcPoint2.top,
+		rcPoint2.right,
+		rcPoint2.bottom);
 }
 
 void MainUpdate::Destroy()

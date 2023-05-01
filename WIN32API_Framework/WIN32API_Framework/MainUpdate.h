@@ -7,6 +7,7 @@ private:
 	HDC m_hdc;
 
 	RECT rcPoint;
+	RECT rcPoint2;
 
 public:
 	void Start();
