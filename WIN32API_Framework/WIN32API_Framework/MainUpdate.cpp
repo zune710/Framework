@@ -1,90 +1,56 @@
 #include "MainUpdate.h"
+#include "Player.h"
 
-MainUpdate::MainUpdate()
+MainUpdate::MainUpdate() : m_pPlayer(NULL)
 {
 
 }
 
 MainUpdate::~MainUpdate()
 {
-
+	Destroy();
 }
 
 void MainUpdate::Start()
 {
 	m_hdc = GetDC(g_hWnd);
 
-	rcPoint.left = 100;
-	rcPoint.top = 100;
-
-	rcPoint.right = 200;
-	rcPoint.bottom = 200;
-
-	rcPoint2 = { 145, 145, 155, 155 };
+	m_pPlayer = new Player();
+	m_pPlayer->Start();
 }
 
 void MainUpdate::Update()
 {
-	int value = 1;
-	
-	if (GetAsyncKeyState(VK_UP))  // Virtual Key
-	{
-		rcPoint.top -= value;
-		rcPoint.bottom -= value;
-	}
+	m_pPlayer->Update();
 
-	if (GetAsyncKeyState(VK_DOWN))
-	{
-		rcPoint.top += value;
-		rcPoint.bottom += value;
-	}
-
-	if (GetAsyncKeyState(VK_LEFT))
-	{
-		rcPoint.left -= value;
-		rcPoint.right -= value;
-	}
-
-	if (GetAsyncKeyState(VK_RIGHT))
-	{
-		rcPoint.left += value;
-		rcPoint.right += value;
-	}
+	/*if (m_pObj)
+		m_pObj->Update();
 
 	if (GetAsyncKeyState(VK_SPACE))
 	{
-		
-		rcPoint2 = { 145, 145, 155, 155 };
-
-		while (rcPoint2.left < 1000)
-		{
-
-			rcPoint2.left += value;
-			rcPoint2.right += value;
-			InvalidateRect(g_hWnd, NULL, true);
-		}
-
-	}
+		m_pObj = new GameObject;
+		m_pObj->Start();
+	}*/
 }
 
 void MainUpdate::Render()
 {
-	//Rectangle(m_hdc, 0, 0, 1280, 720);
-	
-	/*Rectangle(m_hdc, 
-		rcPoint.left, 
-		rcPoint.top, 
-		rcPoint.right, 
-		rcPoint.bottom);*/
+	Rectangle(m_hdc, 0, 0, 1420, 720);
 
-	Ellipse(m_hdc,
-		rcPoint2.left,
-		rcPoint2.top,
-		rcPoint2.right,
-		rcPoint2.bottom);
+	m_pPlayer->Render(m_hdc);
+
+	/*if (m_pObj)
+		m_pObj->Render(m_hdc);*/
 }
 
 void MainUpdate::Destroy()
 {
-
+	delete m_pPlayer;
+	m_pPlayer = NULL;
+	
+	/*if (m_pObj)
+	{
+		delete m_pObj;
+		m_pObj = NULL;
+	}*/
 }
