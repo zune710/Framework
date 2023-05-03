@@ -31,6 +31,9 @@
     <Filter Include="소스 파일\01.Object\Bullet">
       <UniqueIdentifier>{bf153960-1de0-4d67-87d2-79c608377e45}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\01.Object\Enemy">
+      <UniqueIdentifier>{67ca44d3-9697-47c7-b86e-94cf0c5b345a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -66,6 +69,9 @@
     <ClInclude Include="Bullet.h">
       <Filter>소스 파일\01.Object\Bullet</Filter>
     </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>소스 파일\01.Object\Enemy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WIN32API_Framework.cpp">
@@ -82,6 +88,9 @@
     </ClCompile>
     <ClCompile Include="Bullet.cpp">
       <Filter>소스 파일\01.Object\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>소스 파일\01.Object\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

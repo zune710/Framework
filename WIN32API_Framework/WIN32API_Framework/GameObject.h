@@ -8,12 +8,13 @@ protected:
 	float Speed;
 public:
 	virtual void Start()PURE;  // PURE: = 0
-	virtual void Update()PURE;
+	virtual void Start(Vector3 _position)PURE;
+	virtual int Update()PURE;
 	virtual void Render(HDC hdc)PURE;
 	virtual void Destroy()PURE;
 public:
 	Transform GetTransform() { return transform; }
-	//void SetTransform(Transform _transform) { transform = _transform; }  // 크니까? 안 쓰는 편
+	//void SetTransform(Transform _transform) { transform = _transform; }  // 크니까? 안 씀
 
 	Vector3 GetPosition() { return transform.position; }
 	void SetPosition(Vector3 _position) { transform.position = _position; }
