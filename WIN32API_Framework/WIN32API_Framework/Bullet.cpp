@@ -75,12 +75,8 @@ bool Bullet::Collision(Transform _transform)  // Enemy transform
 	
 	if ((left <= x && x < right) || (top <= y && y < bottom))
 	{
-		if (!(
-			(y + radius <= top)
-			|| (y - radius >= bottom)
-			|| (x + radius <= left)
-			|| (x - radius >= right)
-			))
+		if ((y + radius > top) && (y - radius < bottom)
+			&& (x + radius > left) && (x - radius < right))
 			return true;
 	}
 	else
