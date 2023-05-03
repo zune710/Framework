@@ -9,7 +9,8 @@ protected:
 public:
 	virtual void Start()PURE;  // PURE: = 0
 	virtual void Start(Vector3 _position)PURE;
-	virtual int Update(Vector3 _position)PURE;
+	virtual int Update()PURE;
+	virtual int Update(Transform _transform)PURE;
 	virtual void Render(HDC hdc)PURE;
 	virtual void Destroy()PURE;
 public:

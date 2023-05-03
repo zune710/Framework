@@ -18,7 +18,7 @@ void Enemy::Start()
 	Speed = 0.5f;
 }
 
-int Enemy::Update(Vector3 _position)
+int Enemy::Update()
 {
 	transform.position.x -= Speed;
 

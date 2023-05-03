@@ -21,13 +21,12 @@ void MainUpdate::Start()
 
 	m_pEnemy = new Enemy();
 	m_pEnemy->Start();
-
 }
 
 void MainUpdate::Update()
 {
 	if(m_pPlayer)
-		m_pPlayer->Update();
+		m_pPlayer->Update(m_pEnemy->GetTransform());
 
 	if(m_pEnemy)
 		m_pEnemy->Update();
