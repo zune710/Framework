@@ -6,7 +6,7 @@ class Bullet : public GameObject
 public:
 	virtual void Start()override;
 	virtual void Start(Vector3 _position)override;
-	virtual int Update()override;
+	virtual int Update(Vector3 _position)override;
 	virtual void Render(HDC hdc)override;
 	virtual void Destroy()override;
 public:

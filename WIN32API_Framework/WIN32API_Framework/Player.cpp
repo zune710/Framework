@@ -25,13 +25,13 @@ void Player::Start()
 	// nullptr: null∆˜¿Œ≈Õ
 }
 
-int Player::Update()
+int Player::Update(Vector3 _position)
 {
 	for (int i = 0; i < BULLETCOUNT; ++i)
 	{
 		if (BulletList[i] != nullptr)
 		{
-			if (BulletList[i]->Update())
+			if (BulletList[i]->Update(_position))
 			{
 				delete BulletList[i];
 				BulletList[i] = nullptr;

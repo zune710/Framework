@@ -28,7 +28,7 @@ void Bullet::Start(Vector3 _position)
 	Speed = 15.0f;
 }
 
-int Bullet::Update()
+int Bullet::Update(Vector3 _position)
 {
 	transform.position.x += Speed;
 
@@ -36,8 +36,8 @@ int Bullet::Update()
 		return 1;
 
 	//Enemy Ãæµ¹
-	/*if (transform.position.x)
-		return 1;*/
+	//if (transform.position.x)
+	//	return 1;
 
 	return 0;
 }
