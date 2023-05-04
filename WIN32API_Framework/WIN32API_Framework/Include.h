@@ -7,7 +7,7 @@
 #include <Windows.h>
 #include <math.h>
 
-
+using namespace std;
 
 #include "Define.h"
 #include "Structs.h"

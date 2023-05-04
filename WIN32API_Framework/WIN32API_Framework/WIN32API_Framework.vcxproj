@@ -140,12 +140,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Bullet.h" />
+    <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="Define.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Include.h" />
     <ClInclude Include="MainUpdate.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="ObjectManager.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Structs.h" />
@@ -157,6 +159,7 @@
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="MainUpdate.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="ObjectManager.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="WIN32API_Framework.cpp" />
   </ItemGroup>
