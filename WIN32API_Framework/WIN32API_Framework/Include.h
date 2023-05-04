@@ -5,6 +5,7 @@
 #include <map>
 #include <string>
 #include <Windows.h>
+#include <math.h>
 
 
 

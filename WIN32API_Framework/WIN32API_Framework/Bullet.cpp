@@ -44,7 +44,7 @@ int Bullet::Update(Transform _transform)
 
 void Bullet::Render(HDC hdc)
 {
-	Rectangle(hdc,
+	Ellipse(hdc,
 		int(transform.position.x - (transform.scale.x * 0.5f)),
 		int(transform.position.y - (transform.scale.y * 0.5f)),
 		int(transform.position.x + (transform.scale.x * 0.5f)),
@@ -59,6 +59,18 @@ void Bullet::Destroy()
 
 bool Bullet::Collision(Transform _transform)  // Enemy transform
 {
+	float x = _transform.position.x - transform.position.x;
+	float y = _transform.position.y - transform.position.y;
+	float radiusSum = _transform.scale.x * 0.5f + transform.scale.x * 0.5f;
+	float value = x * x + y * y;
+
+	if (sqrt((double)value) < radiusSum)
+		return true;
+
+	return false;
+	
+	/*
+	// Bullet: Rectangle
 	RECT rc = {
 		int(transform.position.x - (transform.scale.x * 0.5f)),
 		int(transform.position.y - (transform.scale.y * 0.5f)),
@@ -94,4 +106,5 @@ bool Bullet::Collision(Transform _transform)  // Enemy transform
 			return true;
 	}
 	return false;
+	*/
 }
