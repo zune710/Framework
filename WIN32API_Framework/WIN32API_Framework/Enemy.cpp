@@ -8,7 +8,7 @@ Enemy::~Enemy()
 {
 }
 
-void Enemy::Start()
+GameObject* Enemy::Start()
 {
 	srand((unsigned int)GetTickCount64());
 	transform.position = Vector3(WIDTH + 75.0f, float(rand() % (HEIGHT - 150) + 75), 0.0f);  // 화면 안에 원 다 들어오게
@@ -18,6 +18,8 @@ void Enemy::Start()
 	Speed = 0.5f;
 
 	Key = "Enemy";
+
+	return this;
 }
 
 int Enemy::Update()

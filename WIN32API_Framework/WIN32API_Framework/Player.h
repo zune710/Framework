@@ -4,7 +4,7 @@
 class Player : public GameObject
 {
 public: // 로직 함수
-	virtual void Start()override;
+	virtual GameObject* Start()override;
 	virtual void Start(Vector3 _position)override {}  // 오버로드된 함수가 오버라이드됨 / Player에선 안 씀
 	virtual int Update()override;
 	virtual void Render(HDC hdc)override;

@@ -11,3 +11,4 @@ using namespace std;
 
 #include "Define.h"
 #include "Structs.h"
+#include "Enum.h"

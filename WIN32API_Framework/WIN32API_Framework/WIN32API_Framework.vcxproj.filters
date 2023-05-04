@@ -43,6 +43,21 @@
     <Filter Include="소스 파일\99.Manager\CollisionManager">
       <UniqueIdentifier>{96451106-e239-4beb-946d-0d3e2d65bbaf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\99.Manager\SceneManager">
+      <UniqueIdentifier>{ec35aa1a-ab4e-4d8e-8686-74a31715c222}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\02.Scene">
+      <UniqueIdentifier>{7917fbf1-fbb5-40ff-8d52-9d3b63e87d4a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\02.Scene\Menu">
+      <UniqueIdentifier>{472bf0ca-04fe-4f38-ae2d-c7291199da7d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\02.Scene\Logo">
+      <UniqueIdentifier>{e11d4dcb-77ce-4ee2-8e0d-d0456f720bbc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\02.Scene\Stage">
+      <UniqueIdentifier>{ee91ffa2-f66e-483f-886c-43d35a97f4cb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -87,6 +102,24 @@
     <ClInclude Include="CollisionManager.h">
       <Filter>소스 파일\99.Manager\CollisionManager</Filter>
     </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>소스 파일\99.Manager\SceneManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Enum.h">
+      <Filter>헤더 파일\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>소스 파일\02.Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Logo.h">
+      <Filter>소스 파일\02.Scene\Logo</Filter>
+    </ClInclude>
+    <ClInclude Include="Menu.h">
+      <Filter>소스 파일\02.Scene\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="Stage.h">
+      <Filter>소스 파일\02.Scene\Stage</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WIN32API_Framework.cpp">
@@ -109,6 +142,21 @@
     </ClCompile>
     <ClCompile Include="ObjectManager.cpp">
       <Filter>소스 파일\99.Manager\ObjectManager</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>소스 파일\99.Manager\SceneManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>소스 파일\02.Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Logo.cpp">
+      <Filter>소스 파일\02.Scene\Logo</Filter>
+    </ClCompile>
+    <ClCompile Include="Menu.cpp">
+      <Filter>소스 파일\02.Scene\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="Stage.cpp">
+      <Filter>소스 파일\02.Scene\Stage</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
