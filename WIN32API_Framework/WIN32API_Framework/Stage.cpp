@@ -2,7 +2,6 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "ObjectManager.h"
-#include "CollisionManager.h"
 
 Stage::Stage()
 {
@@ -22,11 +21,14 @@ void Stage::Start()
 
 int Stage::Update()
 {
-	//list<GameObject*>* EnemyList = ObjectManager::GetInstance()->GetObjectList("Enemy");
-	//list<GameObject*>* BulletList = ObjectManager::GetInstance()->GetObjectList("Bullet");
 
 	if (m_pPlayer)
 		m_pPlayer->Update();
+
+	return 0;
+
+	//list<GameObject*>* EnemyList = ObjectManager::GetInstance()->GetObjectList("Enemy");
+	//list<GameObject*>* BulletList = ObjectManager::GetInstance()->GetObjectList("Bullet");
 
 	/*if (EnemyList != nullptr && !EnemyList->empty())
 	{
@@ -61,7 +63,6 @@ int Stage::Update()
 		}
 	}*/
 
-	return 0;
 }
 
 void Stage::Render(HDC hdc)
