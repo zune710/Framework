@@ -9,7 +9,7 @@ protected:
 
 	string Key;
 public:
-	virtual GameObject* Start()PURE;  // PURE: = 0
+	virtual GameObject* Start()PURE;
 	virtual void Start(Vector3 _position)PURE;
 	virtual int Update()PURE;
 	virtual void Render(HDC hdc)PURE;
@@ -18,7 +18,7 @@ public:
 	string GetKey() { return Key; }
 
 	Transform GetTransform() { return transform; }
-	//void SetTransform(Transform _transform) { transform = _transform; }  // Å©´Ï±î? ¾È ¾¸
+	//void SetTransform(Transform _transform) { transform = _transform; }
 
 	Vector3 GetPosition() { return transform.position; }
 	void SetPosition(Vector3 _position) { transform.position = _position; }

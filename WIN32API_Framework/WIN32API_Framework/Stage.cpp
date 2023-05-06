@@ -67,11 +67,11 @@ int Stage::Update()
 
 void Stage::Render(HDC hdc)
 {
-	list<GameObject*>* EnemyList = ObjectManager::GetInstance()->GetObjectList("Enemy");
-	list<GameObject*>* BulletList = ObjectManager::GetInstance()->GetObjectList("Bullet");
-
 	if (m_pPlayer)
 		m_pPlayer->Render(hdc);
+
+	list<GameObject*>* EnemyList = ObjectManager::GetInstance()->GetObjectList("Enemy");
+	list<GameObject*>* BulletList = ObjectManager::GetInstance()->GetObjectList("Bullet");
 
 	if (EnemyList != nullptr && !EnemyList->empty())
 	{
@@ -90,9 +90,6 @@ void Stage::Destroy()
 {
 	if (m_pPlayer)
 	{
-		// GameObject만 지워지고 Player는 남아있음(메모리 오버플로우 문제 발생할 수 있음. 특히 Bullet)
-		// Player(Bullet)의 소멸자가 호출이 안 되었기 때문
-		// -> GameObject의 소멸자에 virtual 붙여서 해결
 		delete m_pPlayer;
 		m_pPlayer = NULL;
 	}
