@@ -16,10 +16,9 @@ void Logo::Start()
 
 int Logo::Update()
 {
-	if (GetAsyncKeyState('S'))
-	{
+	if (GetAsyncKeyState('A'))
 		SceneManager::GetInstance()->SetScene(MENU);
-	}
+	
 	return 0;
 }
 

@@ -15,7 +15,7 @@ Player::~Player()
 GameObject* Player::Start()
 {
 	transform.position = Vector3(WIDTH * 0.5f, HEIGHT * 0.5f, 0.0f);  // 정중앙
-	transform.rotation = Vector3(0.0f, 0.0f, 0.0f);
+	transform.direction = Vector3(0.0f, 0.0f, 0.0f);
 	transform.scale = Vector3(100.0f, 100.0f, 0.0f);
 
 	Speed = 5.0f;
@@ -38,9 +38,7 @@ int Player::Update()
 		transform.position.x += Speed;
 	
 	if (GetAsyncKeyState(VK_SPACE))
-	{
 		ObjectManager::GetInstance()->AddObject(CreateBullet());
-	}
 
 	return 0;
 }
@@ -63,12 +61,8 @@ GameObject* Player::CreateBullet()
 {
 	GameObject* bullet = new Bullet();
 	
-	// 방법1(getter, setter)
-	//bullet->Start();
-	//bullet->SetPosition(transform.position);
+	bullet->Start();
+	bullet->SetPosition(transform.position);
 
-	// 방법2(오버로드)
-	bullet->Start(transform.position);
-	
 	return bullet;
 }

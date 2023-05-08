@@ -12,7 +12,7 @@ GameObject* Enemy::Start()
 {
 	srand((unsigned int)GetTickCount64());
 	transform.position = Vector3(WIDTH + 75.0f, float(rand() % (HEIGHT - 150) + 75), 0.0f);  // 화면 안에 원 다 들어오게
-	transform.rotation = Vector3(0.0f, 0.0f, 0.0f);
+	transform.direction = Vector3(-1.0f, 0.0f, 0.0f);
 	transform.scale = Vector3(150.0f, 150.0f, 0.0f);
 
 	Speed = 0.5f;
@@ -24,7 +24,7 @@ GameObject* Enemy::Start()
 
 int Enemy::Update()
 {
-	transform.position.x -= Speed;
+	transform.position += transform.direction * Speed;  // 연산자 오버로딩(+=, *) - Bullet, Enemy Update
 
 	if (transform.position.x < 0)
 		return 2;

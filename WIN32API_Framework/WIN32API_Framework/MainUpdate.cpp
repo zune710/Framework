@@ -2,7 +2,7 @@
 #include "SceneManager.h"
 
 
-MainUpdate::MainUpdate()
+MainUpdate::MainUpdate() : m_hdc(NULL)
 {
 
 }

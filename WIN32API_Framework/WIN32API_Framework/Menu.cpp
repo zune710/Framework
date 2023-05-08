@@ -15,10 +15,9 @@ void Menu::Start()
 
 int Menu::Update()
 {
-	if (GetAsyncKeyState('A'))
-	{
+	if (GetAsyncKeyState('S'))
 		SceneManager::GetInstance()->SetScene(STAGE);
-	}
+	
 	return 0;
 }
 
