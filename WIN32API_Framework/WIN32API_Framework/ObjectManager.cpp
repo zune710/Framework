@@ -40,7 +40,7 @@ void ObjectManager::AddObject(GameObject* _Object)
 }
 
 
-list<GameObject*>* ObjectManager::GetObjectList(const string& key)  //  값이 변할 수 있으므로 const 붙여줌
+list<GameObject*>* ObjectManager::GetObjectList(const string& key)  //  레퍼런스 연산자 사용하면 값이 변할 수 있으므로 const 붙여줌
 {
 	// ** 키 값이 현재 map에 포함되어 있는지 확인
 	map<string, list<GameObject*>>::iterator iter = ObjectList.find(key);
