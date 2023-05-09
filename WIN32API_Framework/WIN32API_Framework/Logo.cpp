@@ -19,7 +19,7 @@ int Logo::Update()
 {
 	DWORD dwKey = InputManager::GetInstance()->GetKey();
 
-	if (dwKey & KEYID_SPACE)
+	if (dwKey & KEYID_RETURN)
 	{
 		Sleep(100);
 		SceneManager::GetInstance()->SetScene(MENU);
