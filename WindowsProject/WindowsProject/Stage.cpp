@@ -10,15 +10,13 @@ Stage::Stage() : m_pPlayer(nullptr), EnemyList(nullptr), BulletList(nullptr)
 
 Stage::~Stage()
 {
-	Destroy();
 }
 
 void Stage::Start()
 {
 	m_pPlayer = (new Player)->Start();
 
-	ObjectManager::GetInstance()->AddObject(
-		(new Enemy)->Start());
+	ObjectManager::GetInstance()->AddObject((new Enemy)->Start());
 
 	EnemyList = ObjectManager::GetInstance()->GetObjectList("Enemy");
 }
@@ -31,7 +29,7 @@ int Stage::Update()
 	if (EnemyList != nullptr && !EnemyList->empty())
 	{
 		for (list<GameObject*>::iterator iter = EnemyList->begin(); iter != EnemyList->end(); ++iter)
-			if(*iter != nullptr)
+			if (*iter != nullptr)
 				(*iter)->Update();
 	}
 
@@ -44,7 +42,7 @@ int Stage::Update()
 				if ((*iter)->Update())
 				{
 					delete (*iter);
-					(*iter) = nullptr;
+					*iter = nullptr;
 				}
 			}
 		}
@@ -52,19 +50,19 @@ int Stage::Update()
 	else
 		BulletList = ObjectManager::GetInstance()->GetObjectList("Bullet");
 
-	// collision
+
 	if (EnemyList != nullptr && !EnemyList->empty() && BulletList != nullptr && !BulletList->empty())
 	{
-		for (list<GameObject*>::iterator enemyIter = EnemyList->begin(); enemyIter != EnemyList->end(); ++enemyIter)
+		for (list<GameObject*>::iterator bIter = BulletList->begin(); bIter != BulletList->end(); ++bIter)
 		{
-			for (list<GameObject*>::iterator bulletIter = BulletList->begin(); bulletIter != BulletList->end(); ++bulletIter)
+			for (list<GameObject*>::iterator eIter = EnemyList->begin(); eIter != EnemyList->end(); ++eIter)
 			{
-				if (*enemyIter != nullptr && *bulletIter != nullptr)
+				if ((*eIter) != nullptr && (*bIter) != nullptr)
 				{
-					if (CollisionManager::CircleCollision(*bulletIter, *enemyIter))
+					if (CollisionManager::CircleCollision(*bIter , *eIter))
 					{
-						delete (*bulletIter);
-						(*bulletIter) = nullptr;
+						delete (*bIter);
+						(*bIter) = nullptr;
 					}
 				}
 			}
@@ -82,14 +80,14 @@ void Stage::Render(HDC hdc)
 	if (EnemyList != nullptr && !EnemyList->empty())
 	{
 		for (list<GameObject*>::iterator iter = EnemyList->begin(); iter != EnemyList->end(); ++iter)
-			if (*iter != nullptr)
+			if ((*iter) != nullptr)
 				(*iter)->Render(hdc);
 	}
 
 	if (BulletList != nullptr && !BulletList->empty())
 	{
 		for (list<GameObject*>::iterator iter = BulletList->begin(); iter != BulletList->end(); ++iter)
-			if (*iter != nullptr)
+			if ((*iter) != nullptr)
 				(*iter)->Render(hdc);
 	}
 }
@@ -122,3 +120,4 @@ void Stage::Destroy()
 		BulletList->clear();
 	}
 }
+
