@@ -41,7 +41,10 @@ int Player::Update()
 		transform.position.x += Speed;
 	
 	if (dwKey & KEYID_SPACE)
-		ObjectManager::GetInstance()->AddObject(CreateBullet());
+	{
+		GetSingle(ObjectManager).AddObject(CreateBullet());
+		//ObjectManager::GetInstance()->AddObject(CreateBullet());
+	}
 
 	return 0;
 }

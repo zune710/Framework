@@ -25,3 +25,17 @@ const unsigned char STATEID_WALK   = 0x00000008;
 const unsigned char STATEID_RUN    = 0x00000010;
 const unsigned char STATEID_DASH   = 0x00000020;
 const unsigned char STATEID_DIVE   = 0x00000040;
+
+
+#define Single(T)				    \
+public:							    \
+	static T& GetInstance()		    \
+	{							    \
+		static T instance;		    \
+		return instance;		    \
+	}							    \
+private:						    \
+	T(const T&) = delete;		    \
+	T& operator=(const T&) = delete;
+
+#define GetSingle(T) (T::GetInstance())

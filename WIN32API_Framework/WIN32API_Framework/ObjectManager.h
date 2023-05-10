@@ -4,6 +4,9 @@
 class GameObject;
 class ObjectManager
 {
+public:
+	Single(ObjectManager);
+	/*
 private:
 	static ObjectManager* Instance;
 
@@ -14,6 +17,7 @@ public:
 			Instance = new ObjectManager;
 		return Instance;
 	}
+	*/
 private:
 	map<string, list<GameObject*>> ObjectList;
 public:

@@ -22,7 +22,8 @@ int Menu::Update()
 	if (dwKey & KEYID_RETURN)
 	{
 		Sleep(100);
-		SceneManager::GetInstance()->SetScene(STAGE);
+		GetSingle(SceneManager).SetScene(STAGE);
+		//SceneManager::GetInstance()->SetScene(STAGE);
 	}
 	
 	return 0;

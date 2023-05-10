@@ -4,6 +4,9 @@
 class Scene;
 class SceneManager
 {
+public:
+	Single(SceneManager);
+	/*
 private:
 	static SceneManager* Instance;
 
@@ -14,6 +17,7 @@ public:
 			Instance = new SceneManager;
 		return Instance;
 	}
+	*/
 private:
 	Scene* SceneState;
 public:
