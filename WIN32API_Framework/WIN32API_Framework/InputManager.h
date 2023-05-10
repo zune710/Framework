@@ -4,7 +4,7 @@
 class InputManager
 {
 public:
-	Single(InputManager);
+	Single(InputManager)
 	/*
 private:
 	static InputManager* Instance;

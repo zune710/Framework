@@ -5,7 +5,7 @@ class GameObject;
 class ObjectManager
 {
 public:
-	Single(ObjectManager);
+	Single(ObjectManager)
 	/*
 private:
 	static ObjectManager* Instance;

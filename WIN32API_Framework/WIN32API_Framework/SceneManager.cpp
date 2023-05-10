@@ -12,6 +12,7 @@ SceneManager::SceneManager() : SceneState(nullptr)
 
 SceneManager::~SceneManager()
 {
+	Destroy();
 }
 
 void SceneManager::SetScene(SCENEID _State)

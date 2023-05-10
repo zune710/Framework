@@ -5,7 +5,7 @@ class Scene;
 class SceneManager
 {
 public:
-	Single(SceneManager);
+	Single(SceneManager)
 	/*
 private:
 	static SceneManager* Instance;
