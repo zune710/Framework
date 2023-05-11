@@ -27,7 +27,7 @@ GameObject* Player::Start()
 int Player::Update()
 {
 	
-	DWORD dwKey = GetSingle(*InputManager).GetKey();
+	DWORD dwKey = GetSingle(InputManager).GetKey();
 	//DWORD dwKey = InputManager::GetInstance()->GetKey();
 
 	if (dwKey & KEYID_UP)
@@ -44,7 +44,7 @@ int Player::Update()
 	
 	if (dwKey & KEYID_SPACE)
 	{
-		GetSingle(*ObjectManager).AddObject(CreateBullet());
+		GetSingle(ObjectManager).AddObject(CreateBullet());
 		//ObjectManager::GetInstance()->AddObject(CreateBullet());
 	}
 

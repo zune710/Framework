@@ -17,13 +17,13 @@ void Menu::Start()
 
 int Menu::Update()
 {
-	DWORD dwKey = GetSingle(*InputManager).GetKey();
+	DWORD dwKey = GetSingle(InputManager).GetKey();
 	//DWORD dwKey = InputManager::GetInstance()->GetKey();
 
 	if (dwKey & KEYID_RETURN)
 	{
 		Sleep(100);
-		GetSingle(*SceneManager).SetScene(STAGE);
+		GetSingle(SceneManager).SetScene(STAGE);
 		//SceneManager::GetInstance()->SetScene(STAGE);
 	}
 	

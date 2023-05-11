@@ -40,4 +40,4 @@ private:						    \
 	T(const T&) = delete;		    \
 	T& operator=(const T&) = delete;
 
-#define GetSingle(T) (*T::GetInstance())
+#define GetSingle(T) (**T::GetInstance())
