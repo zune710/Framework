@@ -4,6 +4,8 @@
 
 using namespace std;
 
+// 리스트: '효율적'인 추가, 삭제가 가능하다.
+
 typedef struct tagNode
 {
 	tagNode* next;
@@ -11,11 +13,77 @@ typedef struct tagNode
 } NODE;
 
 NODE* List;
+int Length;
 
-void Push(int value);
+void push(int value)
+{
+	NODE* nextNode = List;
+
+	while (nextNode->next != nullptr)
+		nextNode = nextNode->next;
+
+	// create
+	nextNode->next = new NODE;
+
+	// initialize
+	nextNode->next->next = nullptr;
+	nextNode->next->value = value;
+
+	++Length;
+}
+
+void insert(int count, int value)
+{
+	// ** 리스트에 담긴 총 원소의 개수보다 count의 값이 크다면
+	// ** 값을 추가할 수 없으므로 종료
+	if (Length < count)
+		return;
+
+	// ** 리스트를 들고옴
+	NODE* nextNode = List;
+
+	// ** 카운트의 값만큼 다음 노드로 이동
+	while (0 < count)
+	{
+		--count;
+
+		// ** 다음 노드로 이동
+		nextNode = nextNode->next;
+	}
+	// ** 이동이 끝났다면 새로운 노드를 추가
+	
+	// ** 새로운 노드 생성
+	NODE* newNode = new NODE;
+	newNode->next = nullptr;
+	newNode->value = value;
+
+	// ** 다음 노드를 임시의 저장소에 저장
+	NODE* tempNode = nextNode->next;
+
+	// ** 다음 노드를 저장하는 저장소에 새로운 노드를 배치
+	nextNode->next = newNode;
+
+	// ** 새로운 노드가 가리키는 다음 노드를 임시공간에 있던 노드로 배치
+	newNode->next = tempNode;
+}
 
 int main(void)
 {
+	/*
+	// a가 b를 가리키고 있을 때 c를 그 사이에 어떻게 추가할 것인가
+	int a = 10;
+	int b = 20;
+
+	// 수합?
+	int temp = a;
+	a = b;
+	b = temp;
+
+	cout << a << endl;
+	cout << b << endl;
+	*/
+	
+	
 	// ** 첫 번째 노드
 	// create
 	List = new NODE;
@@ -25,32 +93,12 @@ int main(void)
 	List->value = 0;
 
 	//=======================================
-	// ** 두 번째 노드
-	// create
-	List->next = new NODE;
+	push(10);
+	push(20);
+	push(30);
+	push(40);
 
-	// initialize
-	List->next->next = nullptr;
-	List->next->value = 10;
-
-	//=======================================
-	// ** 세 번째 노드
-	// create
-	List->next->next = new NODE;
-
-	// initialize
-	List->next->next->next = nullptr;
-	List->next->next->value = 20;
-
-	//=======================================
-	// ** 네 번째 노드
-	// create
-	List->next->next->next = new NODE;
-
-	// initialize
-	List->next->next->next->next = nullptr;
-	List->next->next->next->value = 30;
-
+	insert(2, 25);
 
 	// ** 두 번째 노드를 nextNode에 넘겨준다.
 	NODE* nextNode = List->next;
@@ -64,23 +112,9 @@ int main(void)
 		// ** 다음 노드로 이동
 		nextNode = nextNode->next;
 	}
-	
+
 	return 0;
 }
-
-void Push(int value)
-{
-	NODE* nextNode = List;
-
-	while (nextNode != nullptr)
-		nextNode = nextNode->next;
-
-	nextNode = new NODE;
-
-	nextNode->value = value;
-	nextNode->next = nullptr;
-}
-
 
 
 // class Node
