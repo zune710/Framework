@@ -1,10 +1,6 @@
 #include <iostream>
-#include <Windows.h> // 0510
-#include <string> // 0510
 
 using namespace std;
-
-// 리스트: '효율적'인 추가, 삭제가 가능하다.
 
 typedef struct tagNode
 {
@@ -67,6 +63,33 @@ void insert(int count, int value)
 	newNode->next = tempNode;
 }
 
+void erase(int count)
+{
+	// ** 리스트에 담긴 총 원소의 개수보다 count의 값이 크다면
+	// ** 값을 추가할 수 없으므로 종료
+	if (Length < count)
+		return;
+	
+	// ** 리스트를 들고옴
+	NODE* nextNode = List;
+
+	// ** 카운트의 값만큼 다음 노드로 이동
+	while (0 < count)
+	{
+		--count;
+
+		// ** 다음 노드로 이동
+		nextNode = nextNode->next;
+	}
+
+	NODE* tempNode = nextNode->next;
+
+	nextNode->next = tempNode->next;
+
+	delete tempNode;
+	tempNode = nullptr;
+}
+
 int main(void)
 {
 	/*
@@ -74,7 +97,7 @@ int main(void)
 	int a = 10;
 	int b = 20;
 
-	// 수합?
+	// swap 사용
 	int temp = a;
 	a = b;
 	b = temp;
@@ -99,6 +122,7 @@ int main(void)
 	push(40);
 
 	insert(2, 25);
+	erase(2);
 
 	// ** 두 번째 노드를 nextNode에 넘겨준다.
 	NODE* nextNode = List->next;
@@ -116,8 +140,8 @@ int main(void)
 	return 0;
 }
 
-
-// class Node
+// 리스트: '효율적'인 추가, 삭제가 가능하다.
+#pragma region 0511: class Node
 /*
 template <typename T>
 class Node
@@ -161,13 +185,15 @@ int main(void)
 
 	return 0;
 }
-
 */
+#pragma endregion
 
-
-
-// 0510
+#pragma region 0510: if / for / macro function(singleton)
 /*
+#include <iostream>
+#include <Windows.h>
+#include <string>
+ 
 // 1. 함수 사용
 // 2. 클래스 이해도
 
@@ -196,7 +222,7 @@ class Singleton
 {
 public:
 	Single(Singleton)
-	
+
 //private:
 //	static Singleton* Instance;
 //public:
@@ -207,7 +233,7 @@ public:
 //
 //		return Instance;
 //	}
-	
+
 private:
 	int Value;
 public:
@@ -277,7 +303,7 @@ int main(void)
 	cout << GetSingle(Singleton).GetValue() << endl;
 
 
-	
+
 	//function(10);
 	//Object* player = new Player;
 
@@ -287,7 +313,7 @@ int main(void)
 	//for (int i = 0; i < length; ++i)
 	//{
 	//	bulletList->Start(i);
-	//	
+	//
 	//	if(bulletList[i].Update(i))
 	//		cout << "player age 값이 " << i << "보다 작습니다." << endl;
 	//}
@@ -300,3 +326,5 @@ int main(void)
 	return 0;
 }
 */
+#pragma endregion
+
