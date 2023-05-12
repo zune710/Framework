@@ -77,6 +77,8 @@ void insert(int count, int value)
 
 	// ** 새로운 노드가 가리키는 다음 노드를 임시공간에 있던 노드로 배치
 	newNode->next = tempNode;
+
+	++Length;
 }
 
 void remove(int count)
@@ -108,11 +110,28 @@ void remove(int count)
 
 	// ** 삭제된 공간에 임시 저장했던 노드를 세팅
 	nextNode->next = tempNode;
+
+	--Length;
 }
 
+void pop_back()
+{
+	NODE* nextNode = List;
+
+	while (nextNode->next != End)
+		nextNode = nextNode->next;
+	
+	delete nextNode->next;
+	nextNode->next = nullptr;
+
+	End = nextNode;
+	
+	--Length;
+}
 
 int main(void)
 {
+#pragma region 0511: swap
 	/* 0511
 	// a가 b를 가리키고 있을 때 c를 그 사이에 어떻게 추가할 것인가
 	int a = 10;
@@ -126,6 +145,8 @@ int main(void)
 	cout << a << endl;
 	cout << b << endl;
 	*/
+#pragma endregion
+#pragma region 0512: pointer, int, stack
 	/* 0512
 	// ** 포인터
 	int i = 10;  // 데이터(실제 값)를 받음
@@ -180,7 +201,7 @@ int main(void)
 		}
 	}
 	*/
-
+#pragma endregion
 
 	// ** 첫 번째 노드
 	// create
@@ -201,6 +222,8 @@ int main(void)
 
 	insert(2, 25);
 	remove(2);
+
+	pop_back();
 
 	// ** 두 번째 노드를 nextNode에 넘겨준다.
 	NODE* nextNode = List->next;
