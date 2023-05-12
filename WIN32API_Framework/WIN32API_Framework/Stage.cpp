@@ -37,6 +37,7 @@ int Stage::Update()
 				(*iter)->Update();
 
 	if (BulletList != nullptr && !BulletList->empty())
+	{
 		for (list<GameObject*>::iterator iter = BulletList->begin(); iter != BulletList->end(); ++iter)
 			if (*iter != nullptr)
 				if ((*iter)->Update())
@@ -44,6 +45,7 @@ int Stage::Update()
 					delete (*iter);
 					(*iter) = nullptr;
 				}
+	}
 	else
 		BulletList = GetSingle(ObjectManager).GetObjectList("Bullet");
 		//BulletList = ObjectManager::GetInstance()->GetObjectList("Bullet");
