@@ -12,9 +12,10 @@ NODE* List;
 NODE* End;
 int Length;
 
+
 void push(int value)
 {
-	/* End 사용하면 push할 때마다 찾을 필요 없음
+	/* End 사용하면 push할 때마다 찾을 필요 없음(큰 비용을 아낄 수 있음)
 	NODE* nextNode = List;
 	
 	while (nextNode->next != nullptr)
@@ -78,13 +79,13 @@ void insert(int count, int value)
 	newNode->next = tempNode;
 }
 
-void erase(int count)
+void remove(int count)
 {
 	// ** 리스트에 담긴 총 원소의 개수보다 count의 값이 크다면
 	// ** 값을 추가할 수 없으므로 종료
 	if (Length < count)
 		return;
-	
+
 	// ** 리스트를 들고옴
 	NODE* nextNode = List;
 
@@ -96,14 +97,19 @@ void erase(int count)
 		// ** 다음 노드로 이동
 		nextNode = nextNode->next;
 	}
+	// ** 이동이 끝났다면 노드를 삭제
 
-	NODE* tempNode = nextNode->next;
+	// ** 다다음 노드를 임시의 저장소에 저장
+	NODE* tempNode = nextNode->next->next;
+	
+	// ** 다음 노드를 삭제
+	delete nextNode->next;
+	nextNode->next = nullptr;
 
-	nextNode->next = tempNode->next;
-
-	delete tempNode;
-	tempNode = nullptr;
+	// ** 삭제된 공간에 임시 저장했던 노드를 세팅
+	nextNode->next = tempNode;
 }
+
 
 int main(void)
 {
@@ -155,10 +161,25 @@ int main(void)
 	// but 함수에 필요 이상의 매개변수 사용하면 과도한 스택 메모리 복사 발생(비용 많이 듦)
 	
 	// cf. 64비트(x64)에서 모든 포인터(주소)는 8바이트로 표현됨
+
+
+	// ** 스택
+	{
+		{
+			NODE* node = nullptr;
+			{
+				NODE* tempNode = new NODE;
+				tempNode->next = nullptr;
+				tempNode->value = 10;
+
+				node = tempNode;
+
+				cout << tempNode << endl;
+			}   // ↓ 동일한 주소값 ↑
+			cout << node << endl;
+		}
+	}
 	*/
-
-	
-
 
 
 	// ** 첫 번째 노드
@@ -179,7 +200,7 @@ int main(void)
 	push(40);
 
 	insert(2, 25);
-	erase(2);
+	remove(2);
 
 	// ** 두 번째 노드를 nextNode에 넘겨준다.
 	NODE* nextNode = List->next;
