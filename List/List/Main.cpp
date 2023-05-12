@@ -9,15 +9,17 @@ typedef struct tagNode
 } NODE;
 
 NODE* List;
+NODE* End;
 int Length;
 
 void push(int value)
 {
+	/* End 사용하면 push할 때마다 찾을 필요 없음
 	NODE* nextNode = List;
-
+	
 	while (nextNode->next != nullptr)
 		nextNode = nextNode->next;
-
+	
 	// create
 	nextNode->next = new NODE;
 
@@ -25,6 +27,19 @@ void push(int value)
 	nextNode->next->next = nullptr;
 	nextNode->next->value = value;
 
+	++Length;
+	*/
+
+	// create
+	NODE* node = new NODE;
+
+	// initialize
+	node->next = nullptr;
+	node->value = value;
+
+	End->next = node;
+	End = node;
+	
 	++Length;
 }
 
@@ -92,7 +107,7 @@ void erase(int count)
 
 int main(void)
 {
-	/*
+	/* 0511
 	// a가 b를 가리키고 있을 때 c를 그 사이에 어떻게 추가할 것인가
 	int a = 10;
 	int b = 20;
@@ -105,8 +120,47 @@ int main(void)
 	cout << a << endl;
 	cout << b << endl;
 	*/
+	/* 0512
+	// ** 포인터
+	int i = 10;  // 데이터(실제 값)를 받음
+	int* n = &i;  // 데이터(주소)를 받음
+
+	cout << i << endl;  // 10
+	cout << *n << endl;  // 참조
+
+	cout << &i << endl;  // 주소값 출력
+	cout << n << endl;  // 주소값 출력
+
+	*n = 20;
+	cout << i << endl;  // 20
+
+
+	// ** 포인터 예시에 int를 주로 쓰는 이유
+	cout << sizeof(int*) << endl;  // sizeof(int*)는 x64(64bit)에서 8byte, x86(32bit)에서 4byte 
+	// int의 표준(IEEE): short < int <= long
+	// int는 가변적. PC 환경에 따라 사이즈가 달라짐
+	// but int의 size가 x64에서 8byte가 아닌 4byte인 이유: 4byte(고정)인 long보다 클 수 없기 때문
 	
+	// 32비트(x86)에서 모든 포인터(주소)는 4바이트로 표현됨(넘을 수가 없음. 4바이트만으로 모든 주소 표현 가능)
+	// -> int(4byte)에 들어감 : 포인터 예시에 int를 주로 쓰는 이유
+	cout << sizeof(tagNode*) << endl;
+	cout << sizeof(int*) << endl;
+	cout << sizeof(char*) << endl;
+	cout << sizeof(long*) << endl;
+
+	NODE* node = new NODE;  // 힙 메모리에 저장된 20byte 데이터(ex. int 변수 5개인 구조체)의 주소값만 불러오면 4byte만으로 20byte 데이터 사용 가능.
+	node->next = nullptr;  // (*node).next와 동일
+
+	// 함수에 가져와서 사용하려면 참조하면 됨.
+	// but 함수에 필요 이상의 매개변수 사용하면 과도한 스택 메모리 복사 발생(비용 많이 듦)
 	
+	// cf. 64비트(x64)에서 모든 포인터(주소)는 8바이트로 표현됨
+	*/
+
+	
+
+
+
 	// ** 첫 번째 노드
 	// create
 	List = new NODE;
@@ -115,7 +169,10 @@ int main(void)
 	List->next = nullptr;
 	List->value = 0;
 
+	End = List;
+	
 	//=======================================
+
 	push(10);
 	push(20);
 	push(30);
