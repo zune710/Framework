@@ -52,6 +52,6 @@ list<GameObject*>* ObjectManager::GetObjectList(const string& key)  //  레퍼런스
 	// ** 이미 키가 존재한다면...
 	else
 		// ** second = value = list<GameObject*> 를 반환
-		return &iter->second;  // &: 주소 반환 연산자(레퍼런스 연산자)
+		return &iter->second;  // &: 주소 반환 연산자
 }
 
