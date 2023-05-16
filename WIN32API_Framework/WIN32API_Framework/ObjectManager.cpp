@@ -34,13 +34,10 @@ void ObjectManager::AddObject(GameObject* _Object)
 	else
 		// ** 해당 리스트에 오브젝트를 추가
 		iter->second.push_back(_Object);
-
-	// iter->first: key
-	// iter->second: value
 }
 
 
-list<GameObject*>* ObjectManager::GetObjectList(const string& key)  //  레퍼런스 연산자 사용하면 값이 변할 수 있으므로 const 붙여줌
+list<GameObject*>* ObjectManager::GetObjectList(const string& key)
 {
 	// ** 키 값이 현재 map에 포함되어 있는지 확인
 	map<string, list<GameObject*>>::iterator iter = ObjectList.find(key);
@@ -52,6 +49,5 @@ list<GameObject*>* ObjectManager::GetObjectList(const string& key)  //  레퍼런스
 	// ** 이미 키가 존재한다면...
 	else
 		// ** second = value = list<GameObject*> 를 반환
-		return &iter->second;  // &: 주소 반환 연산자
-}
+		return &iter->second;
 

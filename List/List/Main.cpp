@@ -98,8 +98,40 @@ void remove(int count)
 	--Length;
 }
 
+void pop()
+{
+	if (Length < 1)
+		return;
+	else if (Length < 2)
+	{
+		delete List->next;
+		List->next = nullptr;
+		End = List;
+	}
+	else
+	{
+		// ** 리스트를 들고옴
+		NODE* nextNode = List;
+
+		while (nextNode->next->next != nullptr)
+		{
+			// ** 다음 노드로 이동
+			nextNode = nextNode->next;
+		}
+
+		End = nextNode;
+		delete nextNode->next;
+		nextNode->next = nullptr;
+	}
+	--Length;
+}
+
+/*
 void pop_back()
 {
+	if (End == List)
+		return;
+
 	NODE* nextNode = List;
 
 	while (nextNode->next != End)
@@ -112,6 +144,8 @@ void pop_back()
 	
 	--Length;
 }
+*/
+
 
 int main(void)
 {
@@ -135,7 +169,11 @@ int main(void)
 	insert(2, 25);
 	remove(2);
 
-	pop_back();
+	//pop_back();
+	pop();
+
+	push(100);
+	push(200);
 
 	// ** 두 번째 노드를 nextNode에 넘겨준다.
 	NODE* nextNode = List->next;
