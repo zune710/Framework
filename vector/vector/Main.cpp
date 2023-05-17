@@ -1,54 +1,88 @@
 #include <iostream>
-#include <vector>
 
 using namespace std;
 
-int* Numbers = nullptr;
-int Length = 0;
+int* Numbers;
+int Size;
+int Capacity;
 
-void push(int n)
+// 위치가 사이즈보다 크면 X
+// 수용량이 사이즈보다 크면 X?
+void insert(int _where, int _value)
 {
-	if (Numbers == nullptr)
-	{
-		Numbers = new int;
-		*Numbers = n;
-		++Length;
+	if (_where >= Size)
 		return;
+
+	if (Size == Capacity)
+	{
+		int Length = int(Capacity * 0.5f);
+		Capacity += Length < 1 ? 1 : Length;
 	}
-	
-	int* Temp = new int[Length + 1];
 
-	for (int i = 0; i < Length; ++i)
-		Temp[i] = Numbers[i];
+	int* temp = new int[Capacity];
 
-	Temp[Length] = n;
-	Numbers = Temp;
-	++Length;
+	++Size;
+
+	for (int i = 0; i < _where; ++i)
+		temp[i] = Numbers[i];
+
+	temp[_where] = _value;
+
+	for (int i = _where + 1; i < Size; ++i)
+		temp[i] = Numbers[i - 1];
+
+	delete Numbers;
+	Numbers = nullptr;
+
+	Numbers = temp;
 }
+
+void pop_back()
+{
+	if (Size != 0)
+		--Size;
+}
+
+void push_back(int _value)
+{
+	if (Size == Capacity)
+	{
+		int Length = int(Capacity * 0.5f);
+		Capacity += Length < 1 ? 1 : Length;
+	}
+
+	int* temp = new int[Capacity];
+
+	for (int i = 0; i < Size; ++i)
+		temp[i] = Numbers[i];
+
+	delete Numbers;
+	Numbers = nullptr;
+
+	Numbers = temp;
+
+	Numbers[Size] = _value;
+
+	++Size;
+}
+
 
 int main(void)
 {
-	push(10);
-	push(20);
-	push(30);
-	push(40);
-	push(50);
-	
-	for (int i = 0; i < Length; ++i)
+	for (int i = 0; i < 10; ++i)
 	{
-		//cout << Numbers[i] << endl;
+		push_back(i * 10 + 10);
+		cout << "size: " << Size << endl;
+		cout << "capacity: " << Capacity << endl << endl;
 	}
 
+	pop_back();
+	pop_back();
 
-	vector<int> vecList;
+	insert(2, 11);
 
-	for (int i = 0; i < 5; ++i)
-	{
-		vecList.push_back(i * 10 + 10);
-	
-		cout << vecList[i] << endl;
-		cout << vecList.capacity() << endl << endl;
-	}
+	for (int i = 0; i < Size; ++i)
+		cout << Numbers[i] << endl;
 
 
 	return 0;
