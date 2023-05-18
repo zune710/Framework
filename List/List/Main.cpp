@@ -12,13 +12,14 @@ NODE* List;
 NODE* End;
 int Length;
 
-
-NODE* begin()  // 첫 번째 노드를 가리킴
+// 첫 번째 노드를 가리킴
+NODE* begin()
 {
 	return List->next;
 }
 
-NODE* end()  // 마지막(마지막 노드 X)을 가리킴
+// 마지막(마지막 노드 X)을 가리킴
+NODE* end()
 {
 	return End->next;  // nullptr
 }
