@@ -13,6 +13,16 @@ NODE* End;
 int Length;
 
 
+NODE* begin()  // 첫 번째 노드를 가리킴
+{
+	return List->next;
+}
+
+NODE* end()  // 마지막(마지막 노드 X)을 가리킴
+{
+	return End->next;  // nullptr
+}
+
 void push(int value)
 {
 	// create

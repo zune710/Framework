@@ -1,16 +1,68 @@
 #include <iostream>
+#include <vector>
 
 using namespace std;
+
 
 int* Numbers;
 int Size;
 int Capacity;
 
-// 위치가 사이즈보다 크면 X
-// 수용량이 사이즈보다 크면 X?
+
+void erase(int _where)
+{
+	if (_where > Size || _where <= 0)
+		return;
+
+	--Size;
+	--_where;
+
+	for (int i = _where; i < Size; ++i)
+		Numbers[i] = Numbers[i + 1];
+}
+
+/*
+void erase(int _where)
+{
+	if (_where > Size || _where <= 0)
+		return;
+
+	_where -= 1;
+
+	for (int i = _where; i < Size - 1; ++i)
+		Numbers[i] = Numbers[i + 1];
+
+	--Size;
+}
+*/
+
 void insert(int _where, int _value)
 {
-	if (_where >= Size)
+	if (_where > Size || _where <= 0)
+		return;
+
+	if (Size == Capacity)
+	{
+		int Length = int(Capacity * 0.5f);
+		Capacity += Length < 1 ? 1 : Length;
+	}
+
+	_where -= 1;
+
+	for (int i = Size; _where <= i; --i) // Size - 1?
+		Numbers[i + 1] = Numbers[i];
+
+	Numbers[_where] = _value;
+	++Size;
+}
+
+
+// 위치가 사이즈보다 크면 X
+// 사이즈가 수용량보다 크면 X
+/*
+void insert(int _where, int _value)
+{
+	if (_where > Size)
 		return;
 
 	if (Size == Capacity)
@@ -36,6 +88,7 @@ void insert(int _where, int _value)
 
 	Numbers = temp;
 }
+*/
 
 void pop_back()
 {
@@ -76,14 +129,14 @@ int main(void)
 		cout << "capacity: " << Capacity << endl << endl;
 	}
 
-	pop_back();
-	pop_back();
+	//pop_back();
 
-	insert(2, 11);
+	insert(6, 55);
+
+	erase(6);
 
 	for (int i = 0; i < Size; ++i)
 		cout << Numbers[i] << endl;
-
 
 	return 0;
 }
