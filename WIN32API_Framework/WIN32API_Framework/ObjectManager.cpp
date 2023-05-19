@@ -15,7 +15,7 @@ ObjectManager::~ObjectManager()
 
 void ObjectManager::AddObject(GameObject* _Object)
 {
-	// ** 파라메터가 가리키고 있는 키 값이 현재 map에 포함되어 있는지 확인
+	// ** 파라미터가 가리키고 있는 키 값이 현재 map에 포함되어 있는지 확인
 	map<string, list<GameObject*>>::iterator iter = ObjectList.find(_Object->GetKey());
 	
 	// ** 만약 키가 없다면...
