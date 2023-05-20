@@ -12,8 +12,6 @@ typedef struct tagScore
 	int Eng;
 	int Math;
 
-	// (매개변수에 없어도 멤버 변수는 다 초기화해 줘야 함)
-	
 	tagScore() : name(""), Kor(0), Eng(0), Math(0) {}
 
 	tagScore(string _name) : name(_name), Kor(0), Eng(0), Math(0) {}
@@ -24,8 +22,6 @@ typedef struct tagScore
 	tagScore(string _name, int _kor, int _eng, int _math)
 		: name(_name), Kor(_kor), Eng(_eng), Math(_math) {}
 } Score;
-
-//Score* score = new Score();  // C에서는 괄호 생략 가능. C#, 자바에서는 괄호 필수.
 
 
 map<string, list<Score>> StudentList;
@@ -70,7 +66,7 @@ int main(void)
 	*/
 
 
-	string key = "홍";  // string key = string("홍"); 와 동일(생성자 생성)
+	string key = "홍";
 	string name = "길동";
 
 	Score score = CreateScore(name, 10, 20, 30);
@@ -96,9 +92,7 @@ int main(void)
 
 Score CreateScore(string _name, int _kor, int _Eng, int _Math)  // 반환형 포인터로 바꿔야 함
 {
-	// 예외처리들 필요
-	
-	//Score* score = new Score(_name, _kor, _Eng, _Math);       // 이렇게!
+	// 예외처리 필요
 
 	return Score(_name, _kor, _Eng, _Math);
 }
