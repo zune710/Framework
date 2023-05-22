@@ -3,6 +3,7 @@
 #include "Enemy.h"
 #include "ObjectManager.h"
 #include "CollisionManager.h"
+#include "Prototype.h"
 
 Stage::Stage() : m_pPlayer(nullptr), EnemyList(nullptr), BulletList(nullptr)
 {
@@ -15,14 +16,29 @@ Stage::~Stage()
 
 void Stage::Start()
 {
-	m_pPlayer = (new Player)->Start();
+	GetSingle(Prototype)->Start();
 
-	GetSingle(ObjectManager).AddObject(
-		(new Enemy)->Start());
-	/*ObjectManager::GetInstance()->AddObject(
-		(new Enemy)->Start());*/
+	{
+		GameObject* ProtoObj = GetSingle(Prototype)->GetGameObject("Player");  // 유니티 Prefab 과 비슷
 
-	EnemyList = GetSingle(ObjectManager).GetObjectList("Enemy");
+		if (ProtoObj != nullptr)
+		{
+			m_pPlayer = ProtoObj->Clone();  // 유니티 Instantiate() 와 비슷
+			m_pPlayer->Start();
+		}
+	}
+	
+	{
+		GameObject* ProtoObj = GetSingle(Prototype)->GetGameObject("Enemy");
+		
+		if (ProtoObj != nullptr)
+		{
+			GameObject* Object = ProtoObj->Clone();
+			GetSingle(ObjectManager)->AddObject(Object->Start());
+		}
+	}
+
+	EnemyList = GetSingle(ObjectManager)->GetObjectList("Enemy");
 	//EnemyList = ObjectManager::GetInstance()->GetObjectList("Enemy");
 }
 
@@ -47,7 +63,7 @@ int Stage::Update()
 				}
 	}
 	else
-		BulletList = GetSingle(ObjectManager).GetObjectList("Bullet");
+		BulletList = GetSingle(ObjectManager)->GetObjectList("Bullet");
 		//BulletList = ObjectManager::GetInstance()->GetObjectList("Bullet");
 
 

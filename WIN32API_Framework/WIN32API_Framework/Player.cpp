@@ -2,6 +2,7 @@
 #include "Bullet.h"
 #include "ObjectManager.h"
 #include "InputManager.h"
+#include "Prototype.h"
 
 Player::Player()
 {
@@ -27,7 +28,7 @@ GameObject* Player::Start()
 int Player::Update()
 {
 	
-	DWORD dwKey = GetSingle(InputManager).GetKey();
+	DWORD dwKey = GetSingle(InputManager)->GetKey();
 	//DWORD dwKey = InputManager::GetInstance()->GetKey();
 
 	if (dwKey & KEYID_UP)
@@ -44,7 +45,7 @@ int Player::Update()
 	
 	if (dwKey & KEYID_SPACE)
 	{
-		GetSingle(ObjectManager).AddObject(CreateBullet());
+		GetSingle(ObjectManager)->AddObject(CreateBullet());
 		//ObjectManager::GetInstance()->AddObject(CreateBullet());
 	}
 
@@ -67,10 +68,45 @@ void Player::Destroy()
 
 GameObject* Player::CreateBullet()
 {
-	GameObject* bullet = new Bullet();
-	
-	bullet->Start();
-	bullet->SetPosition(transform.position);
+	GameObject* ProtoObj = GetSingle(Prototype)->GetGameObject("Bullet");
 
-	return bullet;
+	/*
+	// C에서는 가독성 떨어짐. C#, Java에서는 괜찮음.
+	try
+	{
+		
+		if (true)  // 에러 조건
+			throw "zzz";  // try 빠져나와서 catch(string str) 또는 catch(...) 실행
+
+		throw 10;
+
+		throw 3.141592f;
+	}
+	catch (...)  // 던진 거 다 잡아옴
+	{
+
+	}
+	//catch (int n)
+	//{
+
+	//}
+	//catch (float f)
+	//{
+
+	//}
+	//catch (string str)
+	//{
+	//	// str 출력
+	//}
+	*/
+
+	if (ProtoObj != nullptr)
+	{
+		GameObject* Object = ProtoObj->Clone();
+		Object->Start();
+		Object->SetPosition(transform.position);
+		return Object;
+	}
+	else
+		return nullptr;
 }

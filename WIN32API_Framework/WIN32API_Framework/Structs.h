@@ -55,6 +55,7 @@ typedef struct tagVector3
 
 } Vector3;
 
+
 typedef struct tagTransform
 {
 	Vector3 position;

@@ -41,7 +41,7 @@ list<GameObject*>* ObjectManager::GetObjectList(const string& key)
 {
 	// ** 키 값이 현재 map에 포함되어 있는지 확인
 	map<string, list<GameObject*>>::iterator iter = ObjectList.find(key);
-	
+
 	// ** 만약 키가 없다면...
 	if (iter == ObjectList.end())
 		// ** nullptr 을 반환
@@ -50,4 +50,4 @@ list<GameObject*>* ObjectManager::GetObjectList(const string& key)
 	else
 		// ** second = value = list<GameObject*> 를 반환
 		return &iter->second;
-
+}
