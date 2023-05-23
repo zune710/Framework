@@ -67,6 +67,12 @@
     <Filter Include="소스 파일\98.Pattern\Prototype">
       <UniqueIdentifier>{4e62a36c-f6de-48b2-8dda-5e4030d95736}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\98.Pattern\ObjectPool">
+      <UniqueIdentifier>{4e252c56-a1a0-4195-b292-502d599f3c93}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\99.Manager\Factory">
+      <UniqueIdentifier>{f495cc17-1397-4870-a37d-4b4070a140f0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -135,6 +141,12 @@
     <ClInclude Include="Prototype.h">
       <Filter>소스 파일\98.Pattern\Prototype</Filter>
     </ClInclude>
+    <ClInclude Include="ObjectFactory.h">
+      <Filter>소스 파일\99.Manager\Factory</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectPool.h">
+      <Filter>소스 파일\98.Pattern\ObjectPool</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WIN32API_Framework.cpp">
@@ -178,6 +190,9 @@
     </ClCompile>
     <ClCompile Include="Prototype.cpp">
       <Filter>소스 파일\98.Pattern\Prototype</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectPool.cpp">
+      <Filter>소스 파일\98.Pattern\ObjectPool</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -39,7 +39,6 @@ void Stage::Start()
 	}
 
 	EnemyList = GetSingle(ObjectManager)->GetObjectList("Enemy");
-	//EnemyList = ObjectManager::GetInstance()->GetObjectList("Enemy");
 }
 
 int Stage::Update()
@@ -64,16 +63,17 @@ int Stage::Update()
 	}
 	else
 		BulletList = GetSingle(ObjectManager)->GetObjectList("Bullet");
-		//BulletList = ObjectManager::GetInstance()->GetObjectList("Bullet");
 
 
-	// collision
+	// Collision Check
 	if (EnemyList != nullptr && !EnemyList->empty() && BulletList != nullptr && !BulletList->empty())
 		for (list<GameObject*>::iterator enemyIter = EnemyList->begin(); enemyIter != EnemyList->end(); ++enemyIter)
 			for (list<GameObject*>::iterator bulletIter = BulletList->begin(); bulletIter != BulletList->end(); ++bulletIter)
 				if (*enemyIter != nullptr && *bulletIter != nullptr)
 					if (CollisionManager::CircleCollision(*bulletIter, *enemyIter))
 					{
+						(*bulletIter)->Destroy();
+
 						delete (*bulletIter);
 						(*bulletIter) = nullptr;
 					}

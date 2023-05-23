@@ -17,7 +17,7 @@ public:
 	virtual GameObject* Clone()PURE;
 public:
 	string GetKey()const { return Key; }
-	GameObject* SetKey(const string& _key) 
+	GameObject* SetKey(const string& _key)
 	{ 
 		Key = _key;
 		return this;

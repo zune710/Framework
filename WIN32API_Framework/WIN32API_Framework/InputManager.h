@@ -5,18 +5,7 @@ class InputManager
 {
 public:
 	Single(InputManager)
-	/*
-private:
-	static InputManager* Instance;
 
-public:
-	static InputManager* GetInstance()
-	{
-		if (Instance == nullptr)
-			Instance = new InputManager;
-		return Instance;
-	}
-	*/
 private:
 	DWORD inputKey;
 public:

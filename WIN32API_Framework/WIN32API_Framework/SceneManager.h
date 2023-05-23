@@ -6,18 +6,7 @@ class SceneManager
 {
 public:
 	Single(SceneManager)
-	/*
-private:
-	static SceneManager* Instance;
 
-public:
-	static SceneManager* GetInstance()
-	{
-		if (Instance == nullptr)
-			Instance = new SceneManager;
-		return Instance;
-	}
-	*/
 private:
 	Scene* SceneState;
 public:

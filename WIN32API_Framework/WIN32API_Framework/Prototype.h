@@ -6,6 +6,7 @@ class Prototype
 {
 public:
 	Single(Prototype)
+
 private:
 	map<string, GameObject*> PrototypeObject;
 public:
