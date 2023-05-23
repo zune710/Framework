@@ -8,9 +8,10 @@ public:
 	Single(ObjectPool)
 
 private:
-	list<GameObject*> PoolList;
+	//list<GameObject*> PoolList;
+	map<string, list<GameObject*>> PoolList;
 public:
-	list<GameObject*>* GetList() { return &PoolList; }
+	//list<GameObject*>* GetList(string _key) { return &PoolList; }
 	GameObject* GetPoolObject();
 	void ReturnObject(GameObject* _Object);
 private:
