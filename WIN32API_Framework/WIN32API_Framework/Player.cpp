@@ -7,6 +7,8 @@
 #include "NormalBullet.h"
 #include "GuideBullet.h"
 
+#include "Enemy.h"  // test
+
 Player::Player()
 {
 
@@ -73,8 +75,10 @@ GameObject* Player::CreateBullet()
 {
 	Bridge* pBridge = new T;
 	pBridge->Start();
+	//GameObject* test = (new Enemy)->Start();
+	//test->SetPosition(Vector3(WIDTH - 75.0f, HEIGHT * 0.5f, 0.0f));
 	((BulletBridge*)pBridge)->SetTarget(this);
-
+	
 	GameObject* ProtoObj = GetSingle(Prototype)->GetGameObject("Bullet");
 
 	if (ProtoObj != nullptr)
