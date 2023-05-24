@@ -57,6 +57,8 @@ int Stage::Update()
 			if (*iter != nullptr)
 				if ((*iter)->Update())
 				{
+					(*iter)->Destroy();
+
 					delete (*iter);
 					(*iter) = nullptr;
 				}
@@ -68,8 +70,9 @@ int Stage::Update()
 	// Collision Check
 	if (EnemyList != nullptr && !EnemyList->empty() && BulletList != nullptr && !BulletList->empty())
 		for (list<GameObject*>::iterator enemyIter = EnemyList->begin(); enemyIter != EnemyList->end(); ++enemyIter)
+			if(*enemyIter != nullptr)
 			for (list<GameObject*>::iterator bulletIter = BulletList->begin(); bulletIter != BulletList->end(); ++bulletIter)
-				if (*enemyIter != nullptr && *bulletIter != nullptr)
+				if (*bulletIter != nullptr)
 					if (CollisionManager::CircleCollision(*bulletIter, *enemyIter))
 					{
 						(*bulletIter)->Destroy();
@@ -86,6 +89,9 @@ void Stage::Render(HDC hdc)
 	if (m_pPlayer)
 		m_pPlayer->Render(hdc);
 
+	GetSingle(ObjectManager)->Render(hdc);
+
+	/*
 	if (EnemyList != nullptr && !EnemyList->empty())
 		for (list<GameObject*>::iterator iter = EnemyList->begin(); iter != EnemyList->end(); ++iter)
 			if (*iter != nullptr)
@@ -95,6 +101,7 @@ void Stage::Render(HDC hdc)
 		for (list<GameObject*>::iterator iter = BulletList->begin(); iter != BulletList->end(); ++iter)
 			if (*iter != nullptr)
 				(*iter)->Render(hdc);
+	*/
 }
 
 void Stage::Destroy()

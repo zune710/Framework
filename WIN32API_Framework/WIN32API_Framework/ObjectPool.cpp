@@ -9,15 +9,8 @@ ObjectPool::~ObjectPool()
 {
 }
 
-GameObject* ObjectPool::GetPoolObject()
-{
-
-}
-
 void ObjectPool::ReturnObject(GameObject* _Object)
 {
-	//PoolList.push_back(_Object);
-
 	map<string, list<GameObject*>>::iterator iter = PoolList.find(_Object->GetKey());
 
 	if (iter == PoolList.end())

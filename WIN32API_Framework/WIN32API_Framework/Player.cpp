@@ -4,6 +4,9 @@
 #include "InputManager.h"
 #include "Prototype.h"
 
+#include "NormalBullet.h"
+#include "GuideBullet.h"
+
 Player::Player()
 {
 
@@ -43,9 +46,10 @@ int Player::Update()
 		transform.position.x += Speed;
 	
 	if (dwKey & KEYID_SPACE)
-	{
-		GetSingle(ObjectManager)->AddObject(CreateBullet());
-	}
+		GetSingle(ObjectManager)->AddObject(CreateBullet<NormalBullet>());
+
+	if (dwKey & KEYID_CONTROL)
+		GetSingle(ObjectManager)->AddObject(CreateBullet<GuideBullet>());
 
 	return 0;
 }
@@ -64,45 +68,23 @@ void Player::Destroy()
 
 }
 
+template <typename T>
 GameObject* Player::CreateBullet()
 {
+	Bridge* pBridge = new T;
+	pBridge->Start();
+	((BulletBridge*)pBridge)->SetTarget(this);
+
 	GameObject* ProtoObj = GetSingle(Prototype)->GetGameObject("Bullet");
-
-	/*
-	// C에서는 가독성 떨어짐. C#, Java에서는 괜찮음.
-	try
-	{
-		
-		if (true)  // 에러 조건
-			throw "zzz";  // try 빠져나와서 catch(string str) 또는 catch(...) 실행
-
-		throw 10;
-
-		throw 3.141592f;
-	}
-	catch (...)  // 던진 거 다 잡아옴
-	{
-
-	}
-	//catch (int n)
-	//{
-
-	//}
-	//catch (float f)
-	//{
-
-	//}
-	//catch (string str)
-	//{
-	//	// str 출력
-	//}
-	*/
 
 	if (ProtoObj != nullptr)
 	{
 		GameObject* Object = ProtoObj->Clone();
 		Object->Start();
 		Object->SetPosition(transform.position);
+		Object->SetBridge(pBridge);
+		pBridge->SetObject(Object);
+
 		return Object;
 	}
 	else

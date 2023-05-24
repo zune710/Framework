@@ -17,7 +17,7 @@ void ObjectManager::AddObject(GameObject* _Object)
 {
 	// ** 파라미터가 가리키고 있는 키 값이 현재 map에 포함되어 있는지 확인
 	map<string, list<GameObject*>>::iterator iter = ObjectList.find(_Object->GetKey());
-	
+
 	// ** 만약 키가 없다면...
 	if (iter == ObjectList.end())
 	{
@@ -50,4 +50,18 @@ list<GameObject*>* ObjectManager::GetObjectList(const string& key)
 	else
 		// ** second = value = list<GameObject*> 를 반환
 		return &iter->second;
+}
+
+void ObjectManager::Render(HDC _hdc)
+{
+	for (map<string, list<GameObject*>>::iterator iter = ObjectList.begin();
+		iter != ObjectList.end(); ++iter)
+	{
+		for (list<GameObject*>::iterator iter2 = iter->second.begin();
+			iter2 != iter->second.end(); ++iter2)
+		{
+			if ((*iter2) != nullptr)
+				(*iter2)->Render(_hdc);
+		}
+	}
 }

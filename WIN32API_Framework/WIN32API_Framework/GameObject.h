@@ -1,12 +1,13 @@
 #pragma once
 #include "Include.h"
 
+class Bridge;
 class GameObject
 {
 protected:
 	Transform transform;
 	float Speed;
-
+	Bridge* pBridge;
 	string Key;
 public:
 	virtual GameObject* Start()PURE;
@@ -30,8 +31,10 @@ public:
 
 	Vector3 GetScale()const { return transform.scale; }
 	void SetScale(const Vector3& _scale) { transform.scale = _scale; }
+
+	void SetBridge(Bridge* _bridge) { pBridge = _bridge; }
 public:
 	GameObject();
-	GameObject(Transform _transform) : transform(_transform), Speed(0.0f) {}
+	GameObject(Transform _transform) : transform(_transform), Speed(0.0f), pBridge(nullptr) {}
 	virtual ~GameObject();
 };

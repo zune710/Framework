@@ -1,5 +1,6 @@
 #include "Bullet.h"
 #include "ObjectPool.h"
+#include "NormalBullet.h"
 
 Bullet::Bullet()
 {
@@ -17,8 +18,6 @@ GameObject* Bullet::Start()
 	transform.direction = Vector3(1.0f, 0.0f, 0.0f);
 	transform.scale = Vector3(30.0f, 30.0f, 0.0f);
 
-	Speed = 15.0f;
-
 	Key = "Bullet";
 
 	return this;
@@ -26,7 +25,8 @@ GameObject* Bullet::Start()
 
 int Bullet::Update()
 {
-	transform.position += transform.direction * Speed;
+	if (pBridge)
+		pBridge->Update(transform);
 
 	if (transform.position.x > WIDTH)
 		return 1;
@@ -36,11 +36,8 @@ int Bullet::Update()
 
 void Bullet::Render(HDC hdc)
 {
-	Ellipse(hdc,
-		int(transform.position.x - (transform.scale.x * 0.5f)),
-		int(transform.position.y - (transform.scale.y * 0.5f)),
-		int(transform.position.x + (transform.scale.x * 0.5f)),
-		int(transform.position.y + (transform.scale.y * 0.5f)));
+	if (pBridge)
+		pBridge->Render(hdc);
 }
 
 void Bullet::Destroy()
