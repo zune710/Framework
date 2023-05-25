@@ -22,7 +22,8 @@ void GuideBullet::Update(Transform& transform)
 	float Distance = sqrt((Horizontal * Horizontal) + (Vertical * Vertical));
 
 	Vector3 Direction;
-	if (Distance > 0)
+
+	if (Distance != 0)
 	{
 		Direction = Vector3(
 			Horizontal / Distance,

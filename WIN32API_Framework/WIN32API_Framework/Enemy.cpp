@@ -27,7 +27,7 @@ int Enemy::Update()
 	transform.position += transform.direction * Speed;  // 연산자 오버로딩(+=, *) - Bullet, Enemy Update
 
 	if (transform.position.x < 0)
-		return 2;
+		return 1;
 
 	return 0;
 }

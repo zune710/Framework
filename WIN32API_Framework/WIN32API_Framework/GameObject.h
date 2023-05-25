@@ -7,8 +7,9 @@ class GameObject
 protected:
 	Transform transform;
 	float Speed;
-	Bridge* pBridge;
 	string Key;
+
+	Bridge* pBridge;
 public:
 	virtual GameObject* Start()PURE;
 	virtual int Update()PURE;
@@ -18,11 +19,7 @@ public:
 	virtual GameObject* Clone()PURE;
 public:
 	string GetKey()const { return Key; }
-	GameObject* SetKey(const string& _key)
-	{ 
-		Key = _key;
-		return this;
-	}
+	GameObject* SetKey(const string& _key) { Key = _key; return this; }
 
 	Transform GetTransform()const { return transform; }
 

@@ -46,10 +46,10 @@ int Player::Update()
 		transform.position.x += Speed;
 	
 	if (dwKey & KEYID_SPACE)
-		GetSingle(ObjectManager)->AddObject(CreateBullet<NormalBullet>());
+		GetSingle(ObjectManager)->AddObject(CreateBullet<NormalBullet>("NormalBullet"));
 
 	if (dwKey & KEYID_CONTROL)
-		GetSingle(ObjectManager)->AddObject(CreateBullet<GuideBullet>());
+		GetSingle(ObjectManager)->AddObject(CreateBullet<GuideBullet>("GuideBullet"));
 
 	return 0;
 }
@@ -69,7 +69,7 @@ void Player::Destroy()
 }
 
 template <typename T>
-GameObject* Player::CreateBullet()
+GameObject* Player::CreateBullet(string _Key)
 {
 	Bridge* pBridge = new T;
 	pBridge->Start();
@@ -82,8 +82,10 @@ GameObject* Player::CreateBullet()
 		GameObject* Object = ProtoObj->Clone();
 		Object->Start();
 		Object->SetPosition(transform.position);
-		Object->SetBridge(pBridge);
+		Object->SetKey(_Key);
+
 		pBridge->SetObject(Object);
+		Object->SetBridge(pBridge);
 
 		return Object;
 	}

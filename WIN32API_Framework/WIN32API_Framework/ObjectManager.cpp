@@ -52,6 +52,36 @@ list<GameObject*>* ObjectManager::GetObjectList(const string& key)
 		return &iter->second;
 }
 
+void ObjectManager::Update()
+{
+	for (map<string, list<GameObject*>>::iterator iter = ObjectList.begin();
+		iter != ObjectList.end(); ++iter)
+	{
+		for (list<GameObject*>::iterator iter2 = iter->second.begin();
+			iter2 != iter->second.end();)
+		{
+			if ((*iter2) != nullptr)
+			{
+				int result = (*iter2)->Update();
+
+				if (result == 1)
+				{
+					(*iter2)->Destroy();
+					iter2 = iter->second.erase(iter2);
+				}
+				else
+					++iter2;
+			}
+		}
+	}
+
+	// collision?
+	/*
+	list<GameObject*>* EnemyList = GetObjectList("Enemy");
+	
+	*/
+}
+
 void ObjectManager::Render(HDC _hdc)
 {
 	for (map<string, list<GameObject*>>::iterator iter = ObjectList.begin();
