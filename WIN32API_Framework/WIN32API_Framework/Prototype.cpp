@@ -25,7 +25,10 @@ void Prototype::Start()
 	key = "Enemy";
 	PrototypeObject.insert(make_pair(key, (new Enemy(transform))->Start()->SetKey(key)));
 
-	key = "Bullet";
+	key = "NormalBullet";
+	PrototypeObject.insert(make_pair(key, (new Bullet(transform))->Start()->SetKey(key)));
+
+	key = "GuideBullet";
 	PrototypeObject.insert(make_pair(key, (new Bullet(transform))->Start()->SetKey(key)));
 }
 

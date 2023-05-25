@@ -4,6 +4,7 @@
 class Bullet : public GameObject
 {
 public:
+	//virtual GameObject* Start(string key = "Bullet")override;
 	virtual GameObject* Start()override;
 	virtual int Update()override;
 	virtual void Render(HDC hdc)override;
