@@ -21,11 +21,17 @@ void GuideBullet::Update(Transform& transform)
 
 	float Distance = sqrt((Horizontal * Horizontal) + (Vertical * Vertical));
 
-	Vector3 Direction = Vector3(
-		Horizontal / Distance,
-		Vertical / Distance,
-		0.0f);
-
+	Vector3 Direction;
+	if (Distance > 0)
+	{
+		Direction = Vector3(
+			Horizontal / Distance,
+			Vertical / Distance,
+			0.0f);
+	}
+	else
+		Direction = Vector3(0.0f, 0.0f, 0.0f);
+	
 	transform.position += Direction * Speed;
 }
 
