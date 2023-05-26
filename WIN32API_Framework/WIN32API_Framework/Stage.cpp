@@ -49,44 +49,42 @@ int Stage::Update()
 
 	GetSingle(ObjectManager)->Update();
 	
-	/*
-	if (EnemyList != nullptr && !EnemyList->empty())
-		for (list<GameObject*>::iterator iter = EnemyList->begin(); iter != EnemyList->end(); ++iter)
-			if(*iter != nullptr)
-				(*iter)->Update();
-
-	if (BulletList != nullptr && !BulletList->empty())
-	{
-		for (list<GameObject*>::iterator iter = BulletList->begin(); iter != BulletList->end(); ++iter)
-			if (*iter != nullptr)
-				if ((*iter)->Update())
-				{
-					(*iter)->Destroy();
-
-					delete (*iter);
-					(*iter) = nullptr;
-				}
-	}
-	else
-		BulletList = GetSingle(ObjectManager)->GetObjectList("Bullet");
-	*/
+	
 
 
-	/*
+
+
 	// Collision Check
-	if (EnemyList != nullptr && !EnemyList->empty() && BulletList != nullptr && !BulletList->empty())
-		for (list<GameObject*>::iterator enemyIter = EnemyList->begin(); enemyIter != EnemyList->end(); ++enemyIter)
-			if(*enemyIter != nullptr)
-			for (list<GameObject*>::iterator bulletIter = BulletList->begin(); bulletIter != BulletList->end(); ++bulletIter)
-				if (*bulletIter != nullptr)
-					if (CollisionManager::CircleCollision(*bulletIter, *enemyIter))
-					{
-						(*bulletIter)->Destroy();
+	list<GameObject*>* NormalList = GetSingle(ObjectManager)->GetObjectList("NormalBullet");
+	list<GameObject*>* GuideList = GetSingle(ObjectManager)->GetObjectList("GuideBullet");
 
-						delete (*bulletIter);
-						(*bulletIter) = nullptr;
-					}
-	*/
+	if (EnemyList != nullptr && !EnemyList->empty() && NormalList != nullptr && !NormalList->empty())
+		for (list<GameObject*>::iterator iter = EnemyList->begin(); iter != EnemyList->end(); ++iter)
+			for (list<GameObject*>::iterator iter2 = NormalList->begin(); iter2 != NormalList->end();)
+			{
+				if (CollisionManager::CircleCollision(*iter2, *iter))
+				{
+					(*iter2)->Destroy();
+
+					iter2 = NormalList->erase(iter2);
+				}
+				else
+					++iter2;
+			}
+
+	if (EnemyList != nullptr && !EnemyList->empty() && GuideList != nullptr && !GuideList->empty())
+		for (list<GameObject*>::iterator iter = EnemyList->begin(); iter != EnemyList->end(); ++iter)
+			for (list<GameObject*>::iterator iter2 = GuideList->begin(); iter2 != GuideList->end();)
+			{
+				if (CollisionManager::CircleCollision(*iter2, *iter))
+				{
+					(*iter2)->Destroy();
+
+					iter2 = GuideList->erase(iter2);
+				}
+				else
+					++iter2;
+			}
 
 	return 0;
 }
@@ -100,6 +98,13 @@ void Stage::Render(HDC hdc)
 
 
 #ifdef DEBUG
+	TextOut(hdc, 70, 30, L"Manager", strlen("Manager"));
+	TextOut(hdc, 140, 30, L"Pool", strlen("Pool"));
+	TextOut(hdc, 10, 50, L"Enemy", strlen("Enemy"));
+	TextOut(hdc, 10, 70, L"Normal", strlen("Normal"));
+	TextOut(hdc, 10, 90, L"Guide", strlen("Guide"));
+
+
 	list<GameObject*>* enemyList = GetSingle(ObjectManager)->GetObjectList("Enemy");
 	list<GameObject*>* normalList = GetSingle(ObjectManager)->GetObjectList("NormalBullet");
 	list<GameObject*>* guideList = GetSingle(ObjectManager)->GetObjectList("GuideBullet");
@@ -127,7 +132,7 @@ void Stage::Render(HDC hdc)
 		mbstowcs(t, str.c_str(), (int)str.size());
 
 		// ** 출력
-		TextOut(hdc, 50, 50, (LPCWSTR)t, (int)str.size());
+		TextOut(hdc, 70, 50, (LPCWSTR)t, (int)str.size());
 	}
 
 	if (normalList != nullptr && !normalList->empty())
@@ -143,7 +148,7 @@ void Stage::Render(HDC hdc)
 		wchar_t* t = new wchar_t[(int)str.size()];
 		mbstowcs(t, str.c_str(), (int)str.size());
 
-		TextOut(hdc, 50, 70, (LPCWSTR)t, (int)str.size());
+		TextOut(hdc, 70, 70, (LPCWSTR)t, (int)str.size());
 
 		/* //문제 발생하는 방식
 		char* NormalCount = new char[128];  // 이건 1바이트, TextOut 인자는 유니코드(2바이트) -> 글자 깨짐
@@ -165,7 +170,7 @@ void Stage::Render(HDC hdc)
 		wchar_t* t = new wchar_t[(int)str.size()];
 		mbstowcs(t, str.c_str(), (int)str.size());
 
-		TextOut(hdc, 50, 90, (LPCWSTR)t, (int)str.size());
+		TextOut(hdc, 70, 90, (LPCWSTR)t, (int)str.size());
 	}
 
 
@@ -185,7 +190,7 @@ void Stage::Render(HDC hdc)
 		wchar_t* t = new wchar_t[(int)str.size()];
 		mbstowcs(t, str.c_str(), (int)str.size());
 
-		TextOut(hdc, 120, 50, (LPCWSTR)t, (int)str.size());
+		TextOut(hdc, 140, 70, (LPCWSTR)t, (int)str.size());
 	}
 
 	if (GuideBulletList != nullptr && !GuideBulletList->empty())
@@ -201,22 +206,9 @@ void Stage::Render(HDC hdc)
 		wchar_t* t = new wchar_t[(int)str.size()];
 		mbstowcs(t, str.c_str(), (int)str.size());
 
-		TextOut(hdc, 120, 70, (LPCWSTR)t, (int)str.size());
+		TextOut(hdc, 140, 90, (LPCWSTR)t, (int)str.size());
 	}
 #endif  // DEBUG
-
-
-	/*
-	if (EnemyList != nullptr && !EnemyList->empty())
-		for (list<GameObject*>::iterator iter = EnemyList->begin(); iter != EnemyList->end(); ++iter)
-			if (*iter != nullptr)
-				(*iter)->Render(hdc);
-
-	if (BulletList != nullptr && !BulletList->empty())
-		for (list<GameObject*>::iterator iter = BulletList->begin(); iter != BulletList->end(); ++iter)
-			if (*iter != nullptr)
-				(*iter)->Render(hdc);
-	*/
 }
 
 void Stage::Destroy()
