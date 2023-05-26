@@ -5,8 +5,10 @@
 #include "CollisionManager.h"
 #include "Prototype.h"
 #include "ObjectPool.h"
+#include "ImageManager.h"
+#include "Bitmap.h"
 
-Stage::Stage() : m_pPlayer(nullptr), EnemyList(nullptr), BulletList(nullptr)
+Stage::Stage() : m_pPlayer(nullptr), EnemyList(nullptr), BulletList(nullptr), m_mapImageList(nullptr)
 {
 }
 
@@ -20,11 +22,11 @@ void Stage::Start()
 	GetSingle(Prototype)->Start();
 
 	{
-		GameObject* ProtoObj = GetSingle(Prototype)->GetGameObject("Player");  // 유니티 Prefab 과 비슷
+		GameObject* ProtoObj = GetSingle(Prototype)->GetGameObject("Player");
 
 		if (ProtoObj != nullptr)
 		{
-			m_pPlayer = ProtoObj->Clone();  // 유니티 Instantiate() 와 비슷
+			m_pPlayer = ProtoObj->Clone();
 			m_pPlayer->Start();
 		}
 	}
@@ -40,6 +42,20 @@ void Stage::Start()
 	}
 
 	EnemyList = GetSingle(ObjectManager)->GetObjectList("Enemy");
+
+	m_mapImageList = GetSingle(ImageManager)->GetImageList();
+
+	(*m_mapImageList)["BackGround"] = (new Bitmap)->LoadBmp(L"../Resource/Stage/BackGround.bmp");
+	(*m_mapImageList)["Buffer"] = (new Bitmap)->LoadBmp(L"../Resource/Stage/Buffer.bmp");
+
+	/*
+	m_mapImageList->insert(
+		make_pair("BackGround", (new Bitmap)->LoadBmp(L"../Resource/Stage/BackGround.bmp")));  // .. : 뒤로가기
+	m_mapImageList->insert(
+		make_pair("Buffer", (new Bitmap)->LoadBmp(L"../Resource/Stage/Buffer.bmp")));
+	*/
+	
+	GameObject::SetImageList(m_mapImageList);
 }
 
 int Stage::Update()
@@ -50,10 +66,6 @@ int Stage::Update()
 	GetSingle(ObjectManager)->Update();
 	
 	
-
-
-
-
 	// Collision Check
 	list<GameObject*>* NormalList = GetSingle(ObjectManager)->GetObjectList("NormalBullet");
 	list<GameObject*>* GuideList = GetSingle(ObjectManager)->GetObjectList("GuideBullet");
@@ -91,10 +103,29 @@ int Stage::Update()
 
 void Stage::Render(HDC hdc)
 {
-	if (m_pPlayer)
-		m_pPlayer->Render(hdc);
+	BitBlt((*m_mapImageList)["Buffer"]->GetMemDC(),   // 복사해 넣을 그림판 ?!
+		0, 0, WIDTH, HEIGHT,                          // 복사할 영역 시작점으로부터 끝부분까지
+		(*m_mapImageList)["BackGround"]->GetMemDC(),  // 복사할 이미지
+		0, 0,                                         // 스케일을 잡아준다.
+		SRCCOPY);                                     // 소스 영역을 대상 영역에 복사한다.
+	// -> 1. Buffer 그림판에 BackGround 그리기
 
-	GetSingle(ObjectManager)->Render(hdc);
+	if (m_pPlayer)
+		m_pPlayer->Render(
+			(*m_mapImageList)["Buffer"]->GetMemDC());
+	// -> 2. Buffer 그림판에 Player 그리기
+
+	GetSingle(ObjectManager)->Render(
+		(*m_mapImageList)["Buffer"]->GetMemDC());
+	// -> 3. Buffer 그림판에 오브젝트들(Bullet, Enemy) 그리기
+
+	BitBlt(hdc,                                       // 복사해 넣을 그림판 ?!
+		0, 0, WIDTH, HEIGHT,                          // 복사할 영역 시작점으로부터 끝부분까지
+		(*m_mapImageList)["Buffer"]->GetMemDC(),      // 복사할 이미지
+		0, 0,                                         // 스케일을 잡아준다.
+		SRCCOPY);                                     // 소스 영역을 대상 영역에 복사한다.
+	// -> 4. 다 그려진 Buffer를 hdc로 그려서 화면에 출력
+	// -> 1 ~ 4: 이렇게 하면 파이팅 현상 안 생겨서 깜빡이지 않음
 
 
 #ifdef DEBUG

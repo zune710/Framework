@@ -5,8 +5,8 @@ extern HWND g_hWnd;
 const int COUNT = 128;
 
 
-#define WIDTH  1500
-#define HEIGHT 900
+#define WIDTH  740
+#define HEIGHT 986
 
 
 const unsigned char KEYID_UP      = 0x00000001;

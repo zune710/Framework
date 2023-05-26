@@ -29,7 +29,7 @@ void MainUpdate::Update()
 
 void MainUpdate::Render()
 {
-	Rectangle(m_hdc, 0, 0, WIDTH, HEIGHT);
+	//Rectangle(m_hdc, 0, 0, WIDTH, HEIGHT);
 
 	GetSingle(SceneManager)->Render(m_hdc);
 }
