@@ -14,8 +14,10 @@ public:
 		// ** 각각의 구의 반지름의 합을 구한다.
 		float sum = (dest->GetScale().x + temp->GetScale().x) * 0.5f;
 
+
 		// ** 거리를 구한다.
-		float distance = sqrt((fx * fx) + (fy * fy));
+		float value = (fx * fx) + (fy * fy);
+		float distance = (float)sqrt((double)value);
 
 		// ** 거리가 반지름의 합보다 작다면 충돌
 		if (distance < sum)

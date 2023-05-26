@@ -98,11 +98,11 @@ void Stage::Render(HDC hdc)
 
 
 #ifdef DEBUG
-	TextOut(hdc, 70, 30, L"Manager", strlen("Manager"));
-	TextOut(hdc, 140, 30, L"Pool", strlen("Pool"));
-	TextOut(hdc, 10, 50, L"Enemy", strlen("Enemy"));
-	TextOut(hdc, 10, 70, L"Normal", strlen("Normal"));
-	TextOut(hdc, 10, 90, L"Guide", strlen("Guide"));
+	TextOut(hdc, 70, 30, L"Manager", (int)strlen("Manager"));
+	TextOut(hdc, 140, 30, L"Pool", (int)strlen("Pool"));
+	TextOut(hdc, 10, 50, L"Enemy", (int)strlen("Enemy"));
+	TextOut(hdc, 10, 70, L"Normal", (int)strlen("Normal"));
+	TextOut(hdc, 10, 90, L"Guide", (int)strlen("Guide"));
 
 
 	list<GameObject*>* enemyList = GetSingle(ObjectManager)->GetObjectList("Enemy");

@@ -4,8 +4,6 @@
 #include "Menu.h"
 #include "Stage.h"
 
-//SceneManager* SceneManager::Instance = nullptr;
-
 SceneManager::SceneManager() : SceneState(nullptr)
 {
 }
