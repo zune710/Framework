@@ -2,7 +2,6 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "ObjectManager.h"
-#include "CollisionManager.h"
 #include "Prototype.h"
 #include "ObjectPool.h"
 #include "ImageManager.h"
@@ -64,39 +63,6 @@ int Stage::Update()
 		m_pPlayer->Update();
 
 	GetSingle(ObjectManager)->Update();
-	
-	
-	// Collision Check
-	list<GameObject*>* NormalList = GetSingle(ObjectManager)->GetObjectList("NormalBullet");
-	list<GameObject*>* GuideList = GetSingle(ObjectManager)->GetObjectList("GuideBullet");
-
-	if (EnemyList != nullptr && !EnemyList->empty() && NormalList != nullptr && !NormalList->empty())
-		for (list<GameObject*>::iterator iter = EnemyList->begin(); iter != EnemyList->end(); ++iter)
-			for (list<GameObject*>::iterator iter2 = NormalList->begin(); iter2 != NormalList->end();)
-			{
-				if (CollisionManager::CircleCollision(*iter2, *iter))
-				{
-					(*iter2)->Destroy();
-
-					iter2 = NormalList->erase(iter2);
-				}
-				else
-					++iter2;
-			}
-
-	if (EnemyList != nullptr && !EnemyList->empty() && GuideList != nullptr && !GuideList->empty())
-		for (list<GameObject*>::iterator iter = EnemyList->begin(); iter != EnemyList->end(); ++iter)
-			for (list<GameObject*>::iterator iter2 = GuideList->begin(); iter2 != GuideList->end();)
-			{
-				if (CollisionManager::CircleCollision(*iter2, *iter))
-				{
-					(*iter2)->Destroy();
-
-					iter2 = GuideList->erase(iter2);
-				}
-				else
-					++iter2;
-			}
 
 	return 0;
 }
@@ -180,12 +146,6 @@ void Stage::Render(HDC hdc)
 		mbstowcs(t, str.c_str(), (int)str.size());
 
 		TextOut(hdc, 70, 70, (LPCWSTR)t, (int)str.size());
-
-		/* //문제 발생하는 방식
-		char* NormalCount = new char[128];  // 이건 1바이트, TextOut 인자는 유니코드(2바이트) -> 글자 깨짐
-		_itoa((int)normalList->size(), NormalCount, 10);
-		TextOut(hdc, 50, 70, (LPCWSTR)NormalCount, strlen(NormalCount));
-		*/
 	}
 
 	if (guideList != nullptr && !guideList->empty())

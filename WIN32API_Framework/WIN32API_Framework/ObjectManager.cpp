@@ -1,5 +1,6 @@
 #include "ObjectManager.h"
 #include "GameObject.h"
+#include "CollisionManager.h"
 
 ObjectManager::ObjectManager()
 {
@@ -70,7 +71,7 @@ void ObjectManager::Update()
 		}
 	}
 
-	// collision?
+	CollisionCheck();
 
 }
 
@@ -80,5 +81,43 @@ void ObjectManager::Render(HDC _hdc)
 		iter != ObjectList.end(); ++iter)
 		for (list<GameObject*>::iterator iter2 = iter->second.begin();
 			iter2 != iter->second.end(); ++iter2)
-				(*iter2)->Render(_hdc);
+			(*iter2)->Render(_hdc);
+}
+
+
+void ObjectManager::CollisionCheck()
+{
+	list<GameObject*>* EnemyList = &ObjectList["Enemy"];
+	list<GameObject*>* NormalList = &ObjectList["NormalBullet"];
+	list<GameObject*>* GuideList = &ObjectList["GuideBullet"];
+
+	for (list<GameObject*>::iterator iter = EnemyList->begin();
+		iter != EnemyList->end(); ++iter)
+	{
+		for (list<GameObject*>::iterator iter2 = NormalList->begin();
+			iter2 != NormalList->end();)
+		{
+			if (CollisionManager::CircleCollision(*iter2, *iter))
+			{
+				(*iter2)->Destroy();
+
+				iter2 = NormalList->erase(iter2);
+			}
+			else
+				++iter2;
+		}
+
+		for (list<GameObject*>::iterator iter2 = GuideList->begin();
+			iter2 != GuideList->end();)
+		{
+			if (CollisionManager::CircleCollision(*iter2, *iter))
+			{
+				(*iter2)->Destroy();
+
+				iter2 = GuideList->erase(iter2);
+			}
+			else
+				++iter2;
+		}
+	}
 }

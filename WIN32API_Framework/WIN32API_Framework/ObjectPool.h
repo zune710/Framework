@@ -8,7 +8,7 @@ public:
 	Single(ObjectPool)
 
 private:
-	map<string, list<GameObject*>> PoolList;  // 사용 안 하는 오브젝트들 보관만 함
+	map<string, list<GameObject*>> PoolList;
 public:
 	list<GameObject*>* GetList(string _key)
 	{
