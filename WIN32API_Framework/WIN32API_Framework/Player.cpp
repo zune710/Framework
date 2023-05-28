@@ -27,7 +27,7 @@ GameObject* Player::Start()
 
 	Speed = 5.0f;
 
-	//Key = "Player";  // "BackGround"
+	//Key = "BackGround";
 
 	return this;
 }
