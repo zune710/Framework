@@ -46,8 +46,9 @@ void Stage::Start()
 
 	(*m_mapImageList)["BackGround"] = (new Bitmap)->LoadBmp(L"../Resource/Stage/BackGround.bmp");
 	(*m_mapImageList)["Buffer"] = (new Bitmap)->LoadBmp(L"../Resource/Stage/Buffer.bmp");
-	(*m_mapImageList)["Player"] = (new Bitmap)->LoadBmp(L"../Resource/Stage/Player.bmp");
-
+	(*m_mapImageList)["PlayerL"] = (new Bitmap)->LoadBmp(L"../Resource/Stage/PlayerL.bmp");
+	(*m_mapImageList)["PlayerR"] = (new Bitmap)->LoadBmp(L"../Resource/Stage/PlayerR.bmp");
+	
 	/*
 	m_mapImageList->insert(
 		make_pair("BackGround", (new Bitmap)->LoadBmp(L"../Resource/Stage/BackGround.bmp")));

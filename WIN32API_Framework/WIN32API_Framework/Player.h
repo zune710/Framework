@@ -8,8 +8,6 @@ private:
 
 	bool Attack;
 	bool Roll;
-	bool isJumping;
-	int Direction;
 
 public:
 	virtual GameObject* Start()override;
@@ -26,11 +24,10 @@ public:
 
 	void SetFrame(int _frame, int _locomotion, int _endFrame, float _frameTime);
 	void OnAttack();
-	void OnMove();
 	void OnRoll();
 public:
 	Player();
-	Player(Transform _transform) : GameObject(_transform) {}
+	Player(Transform _transform) : GameObject(_transform), Attack(false), Roll(false) {}
 	virtual ~Player();
 };
 

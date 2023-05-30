@@ -36,6 +36,8 @@ public:
 	Vector3 GetScale()const { return transform.scale; }
 	void SetScale(const Vector3& _scale) { transform.scale = _scale; }
 
+	Vector3 GetDirection()const { return transform.direction; }
+
 	void SetBridge(Bridge* _bridge) { pBridge = _bridge; }
 public:
 	GameObject();

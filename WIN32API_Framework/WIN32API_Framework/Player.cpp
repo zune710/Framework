@@ -11,7 +11,7 @@
 
 
 
-Player::Player() : Attack(false)
+Player::Player() : Attack(false), Roll(false)
 {
 
 }
@@ -25,19 +25,19 @@ GameObject* Player::Start()
 {
 	Attack = false;
 
-	
+
 	frame.CountX = 0;
 	frame.CountY = 0;
 	frame.EndFrame = 7;
 	frame.FrameTime = 50;  // 0.05초
-	
+
 	transform.position = Vector3(WIDTH * 0.5f, HEIGHT * 0.5f, 0.0f);  // 정중앙
 	transform.direction = Vector3(0.0f, 0.0f, 0.0f);
 	transform.scale = Vector3(679 / 7, 639 / 9, 0.0f);
 
 	Speed = 5.0f;
 
-	Key = "Player";
+	Key = "PlayerR";
 
 	Time = GetTickCount64();
 
@@ -55,8 +55,8 @@ int Player::Update()
 		if (frame.CountX == frame.EndFrame)
 		{
 			frame.CountX = 0;
-			
-			if(Attack)
+
+			if (Attack)
 				Attack = false;
 
 			if (Roll)
@@ -73,37 +73,46 @@ int Player::Update()
 		transform.position.y += Speed;
 
 	if (dwKey & KEYID_LEFT)
+	{
 		transform.position.x -= Speed;
+		Key = "PlayerL";
+		transform.direction.x = -1.0f;
+	}
 
 	if (dwKey & KEYID_RIGHT)
-		transform.position.x += Speed;
-	
-	if (dwKey & KEYID_SPACE)
 	{
-		if (!Attack)
-		{
-			Attack = true;
-			GetSingle(ObjectManager)->AddObject(CreateBullet<NormalBullet>("NormalBullet"));
-		}
+		transform.position.x += Speed;
+		Key = "PlayerR";
+		transform.direction.x = 1.0f;
 	}
+
+	if (dwKey & KEYID_SPACE)
+		OnAttack();
 
 	if (dwKey & KEYID_CONTROL)
+		OnRoll();
+
+	if (!Attack && !Roll)
 	{
-		if (!Roll)
+		if (dwKey == 0)
 		{
-			Roll = true;
-			GetSingle(ObjectManager)->AddObject(CreateBullet<GuideBullet>("GuideBullet"));
+			if(frame.CountY != 0)
+				SetFrame(0, 0, 7, 50);
+		}
+		else
+		{
+			if(frame.CountY != 1)
+				SetFrame(0, 1, 7, 50);
 		}
 	}
 
-	if (dwKey == 0)
-		PlayAnimation(IDLE);
-	else if (dwKey & KEYID_SPACE)
-		PlayAnimation(ATTACK);
-	else if (dwKey & KEYID_CONTROL)
-		PlayAnimation(ROLL);
-	else
-		PlayAnimation(RUN);
+	/*if (!Attack && !Roll)
+	{
+		if (dwKey == 0)
+			PlayAnimation(IDLE);
+		else
+			PlayAnimation(RUN);
+	}*/
 
 	return 0;
 }
@@ -121,7 +130,7 @@ void Player::Render(HDC hdc)
 		(int)transform.scale.x,					// 출력할 이미지의 크기만큼 X
 		(int)transform.scale.y,					// 출력할 이미지의 크기만큼 Y
 		RGB(255, 0, 255));						// 해당 색상을 제외
-	
+
 	/*
 	Rectangle(hdc,
 		int(transform.position.x - (transform.scale.x * 0.5f)),
@@ -165,13 +174,44 @@ GameObject* Player::CreateBullet(string _Key)
 		else
 			return nullptr;
 	}
-	
+
 	Obj->Start();
 	Obj->SetPosition(transform.position + transform.scale * 0.5f + offset);
 	Obj->SetKey(_Key);
 
 	return Obj;
 }
+
+void Player::SetFrame(int _frame, int _locomotion, int _endFrame, float _frameTime)
+{
+	frame.CountX = _frame;
+	frame.CountY = _locomotion;
+	frame.EndFrame = _endFrame;
+	frame.FrameTime = _frameTime;
+}
+
+void Player::OnAttack()
+{
+	if (Attack)
+		return;
+
+	Attack = true;
+	SetFrame(0, 5, 4, 100);
+
+	GetSingle(ObjectManager)->AddObject(CreateBullet<NormalBullet>("NormalBullet"));
+}
+
+void Player::OnRoll()
+{
+	if (Roll)
+		return;
+
+	Roll = true;
+	SetFrame(1, 4, 3, 70);
+
+	GetSingle(ObjectManager)->AddObject(CreateBullet<GuideBullet>("GuideBullet"));
+}
+
 
 void Player::PlayAnimation(STATE _State)
 {
@@ -180,7 +220,7 @@ void Player::PlayAnimation(STATE _State)
 
 	frame.CountX = 0;
 	frame.CountY = (int)_State;
-	
+
 	switch (_State)
 	{
 	case IDLE:
@@ -232,28 +272,3 @@ void Player::PlayAnimation(STATE _State)
 	}
 }
 
-void Player::SetFrame(int _frame, int _locomotion, int _endFrame, float _frameTime)
-{
-	frame.CountX = _frame;
-	frame.CountY = _locomotion;
-	frame.EndFrame = _endFrame;
-	frame.FrameTime = _frameTime;
-}
-
-//void Player::OnAttack()
-//{
-//	if (Attack)
-//		return;
-//
-//	Attack = true;
-//	SetFrame(0, 5, 4, 1500 / 4);
-//}
-//
-//void Player::OnMove()
-//{
-//	transform.position += transform.direction * Speed;
-//}
-//
-//void Player::OnRoll()
-//{
-//}
