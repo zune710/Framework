@@ -74,24 +74,19 @@ void Stage::Render(HDC hdc)
 		(*m_mapImageList)["BackGround"]->GetMemDC(),  // 복사할 이미지
 		0, 0,                                         // 스케일을 잡아준다.
 		SRCCOPY);                                     // 소스 영역을 대상 영역에 복사한다.
-	// -> 1. Buffer 그림판에 BackGround 그리기
 
 	if (m_pPlayer)
 		m_pPlayer->Render(
 			(*m_mapImageList)["Buffer"]->GetMemDC());
-	// -> 2. Buffer 그림판에 Player 그리기
 
 	GetSingle(ObjectManager)->Render(
 		(*m_mapImageList)["Buffer"]->GetMemDC());
-	// -> 3. Buffer 그림판에 오브젝트들(Bullet, Enemy) 그리기
 
 	BitBlt(hdc,                                       // 복사해 넣을 그림판 ?!
 		0, 0, WIDTH, HEIGHT,                          // 복사할 영역 시작점으로부터 끝부분까지
 		(*m_mapImageList)["Buffer"]->GetMemDC(),      // 복사할 이미지
 		0, 0,                                         // 스케일을 잡아준다.
 		SRCCOPY);                                     // 소스 영역을 대상 영역에 복사한다.
-	// -> 4. 다 그려진 Buffer를 hdc로 그려서 화면에 출력
-	// -> 1 ~ 4: 이렇게 하면 파이팅 현상 안 생겨서 깜빡이지 않음
 
 
 #ifdef DEBUG

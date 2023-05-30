@@ -61,17 +61,17 @@ int Player::Update()
 void Player::Render(HDC hdc)
 {
 	/*
-	TransparentBlt(hdc,  // 복사해 넣을 그림판 ?!
-		(int)transform.position.x,  // 복사할 영역 시작점 X
-		(int)transform.position.y,  // 복사할 영역 시작점 Y
-		(int)transform.scale.x,  // 복사할 영역 끝부분 X
-		(int)transform.scale.y,  // 복사할 영역 끝부분 Y
+	TransparentBlt(hdc,					  // 복사해 넣을 그림판 ?!
+		(int)transform.position.x,		  // 복사할 영역 시작점 X
+		(int)transform.position.y,		  // 복사할 영역 시작점 Y
+		(int)transform.scale.x,			  // 복사할 영역 끝부분 X
+		(int)transform.scale.y,			  // 복사할 영역 끝부분 Y
 		(*m_ImageList)[Key]->GetMemDC(),  // 복사할 이미지 (복사대상)
-		0,  // 복사할 시작점 X
-		0,  // 복사할 시작점 Y
-		(int)transform.scale.x,  // 출력할 이미지의 크기만큼 X
-		(int)transform.scale.y,  // 출력할 이미지의 크기만큼 Y
-		RGB(255, 0, 255));  // 해당 색상을 제외
+		0,								  // 복사할 시작점 X
+		0,								  // 복사할 시작점 Y
+		(int)transform.scale.x,			  // 출력할 이미지의 크기만큼 X
+		(int)transform.scale.y,			  // 출력할 이미지의 크기만큼 Y
+		RGB(255, 0, 255));				  // 해당 색상을 제외
 	*/
 	
 	Rectangle(hdc,
