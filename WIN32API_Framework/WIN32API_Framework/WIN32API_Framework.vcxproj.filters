@@ -88,11 +88,11 @@
     <Filter Include="소스 파일\01.GameObject\Enemy\EnemyBridge">
       <UniqueIdentifier>{682011f2-f3a3-4d9c-8143-19dd6bb28bb7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\99.Manager\Bitmap">
-      <UniqueIdentifier>{4daffaf7-1693-4291-99ec-a17402b5ac0c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\99.Manager\Bitmap\ImageManager">
+    <Filter Include="소스 파일\99.Manager\ImageManager">
       <UniqueIdentifier>{82adcac0-c121-491d-80d2-5413b78007c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\99.Manager\ImageManager\Bitmap">
+      <UniqueIdentifier>{4daffaf7-1693-4291-99ec-a17402b5ac0c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -181,10 +181,10 @@
       <Filter>소스 파일\01.GameObject\Bullet\BulletBridge\GuideBullet</Filter>
     </ClInclude>
     <ClInclude Include="Bitmap.h">
-      <Filter>소스 파일\99.Manager\Bitmap</Filter>
+      <Filter>소스 파일\99.Manager\ImageManager\Bitmap</Filter>
     </ClInclude>
     <ClInclude Include="ImageManager.h">
-      <Filter>소스 파일\99.Manager\Bitmap\ImageManager</Filter>
+      <Filter>소스 파일\99.Manager\ImageManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -240,10 +240,10 @@
       <Filter>소스 파일\01.GameObject\Bullet\BulletBridge\GuideBullet</Filter>
     </ClCompile>
     <ClCompile Include="Bitmap.cpp">
-      <Filter>소스 파일\99.Manager\Bitmap</Filter>
+      <Filter>소스 파일\99.Manager\ImageManager\Bitmap</Filter>
     </ClCompile>
     <ClCompile Include="ImageManager.cpp">
-      <Filter>소스 파일\99.Manager\Bitmap\ImageManager</Filter>
+      <Filter>소스 파일\99.Manager\ImageManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
