@@ -168,6 +168,7 @@
     <ClInclude Include="Stage.h" />
     <ClInclude Include="Structs.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="Timer.h" />
     <ClInclude Include="WIN32API_Framework.h" />
   </ItemGroup>
   <ItemGroup>
@@ -189,6 +190,7 @@
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Stage.cpp" />
+    <ClCompile Include="Timer.cpp" />
     <ClCompile Include="WIN32API_Framework.cpp" />
   </ItemGroup>
   <ItemGroup>

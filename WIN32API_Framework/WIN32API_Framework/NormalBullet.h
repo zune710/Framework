@@ -3,8 +3,6 @@
 
 class NormalBullet : public BulletBridge
 {
-private:
-	float TargetDirection;
 public:
 	virtual void Start()override;
 	virtual void Update(Transform& transform)override;

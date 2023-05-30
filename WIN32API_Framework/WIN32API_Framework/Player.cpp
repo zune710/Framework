@@ -10,7 +10,6 @@
 #include "Bitmap.h"
 
 
-
 Player::Player() : Attack(false), Roll(false)
 {
 
@@ -30,11 +29,11 @@ GameObject* Player::Start()
 	frame.CountY = 0;
 	frame.EndFrame = 7;
 	frame.FrameTime = 50;  // 0.05ÃÊ
-
+	
 	transform.position = Vector3(WIDTH * 0.5f, HEIGHT * 0.5f, 0.0f);  // Á¤Áß¾Ó
 	transform.direction = Vector3(0.0f, 0.0f, 0.0f);
 	transform.scale = Vector3(679 / 7, 639 / 9, 0.0f);
-
+	
 	Speed = 5.0f;
 
 	Key = "PlayerR";
@@ -75,15 +74,15 @@ int Player::Update()
 	if (dwKey & KEYID_LEFT)
 	{
 		transform.position.x -= Speed;
-		Key = "PlayerL";
 		transform.direction.x = -1.0f;
+		Key = "PlayerL";
 	}
 
 	if (dwKey & KEYID_RIGHT)
 	{
 		transform.position.x += Speed;
-		Key = "PlayerR";
 		transform.direction.x = 1.0f;
+		Key = "PlayerR";
 	}
 
 	if (dwKey & KEYID_SPACE)
@@ -164,6 +163,7 @@ GameObject* Player::CreateBullet(string _Key)
 			GameObject* Object = ProtoObj->Clone();
 			Object->Start();
 			Object->SetPosition(transform.position + transform.scale * 0.5f + offset);
+			Object->SetDirection(transform.direction);
 			Object->SetKey(_Key);
 
 			pBridge->SetObject(Object);
@@ -177,6 +177,7 @@ GameObject* Player::CreateBullet(string _Key)
 
 	Obj->Start();
 	Obj->SetPosition(transform.position + transform.scale * 0.5f + offset);
+	Obj->SetDirection(transform.direction);
 	Obj->SetKey(_Key);
 
 	return Obj;

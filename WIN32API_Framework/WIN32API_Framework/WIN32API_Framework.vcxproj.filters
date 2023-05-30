@@ -94,6 +94,9 @@
     <Filter Include="소스 파일\99.Manager\ImageManager\Bitmap">
       <UniqueIdentifier>{4daffaf7-1693-4291-99ec-a17402b5ac0c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Test">
+      <UniqueIdentifier>{35456835-c4c2-4979-ab46-0f26671ffcbf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -186,6 +189,9 @@
     <ClInclude Include="ImageManager.h">
       <Filter>소스 파일\99.Manager\ImageManager</Filter>
     </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>소스 파일\Test</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WIN32API_Framework.cpp">
@@ -244,6 +250,9 @@
     </ClCompile>
     <ClCompile Include="ImageManager.cpp">
       <Filter>소스 파일\99.Manager\ImageManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>소스 파일\Test</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

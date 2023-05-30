@@ -12,13 +12,12 @@ NormalBullet::~NormalBullet()
 void NormalBullet::Start()
 {
 	Speed = 15.0f;
-	//TargetDirection = Target->GetDirection().x;
 }
 
 void NormalBullet::Update(Transform& transform)
 {
 	
-	transform.position += transform.direction * Speed;  //  * TargetDirection
+	transform.position += transform.direction * Speed;
 }
 
 void NormalBullet::Render(HDC hdc)

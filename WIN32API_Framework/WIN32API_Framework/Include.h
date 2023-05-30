@@ -8,6 +8,7 @@
 #include <string>
 #include <Windows.h>
 #include <math.h>
+#include <profileapi.h>
 
 using namespace std;
 
