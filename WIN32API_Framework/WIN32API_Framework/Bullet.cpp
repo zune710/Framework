@@ -16,7 +16,7 @@ GameObject* Bullet::Start()
 {
 	transform.position = Vector3(0.0f, 0.0f, 0.0f);
 	transform.direction = Vector3(1.0f, 0.0f, 0.0f);
-	transform.scale = Vector3(30.0f, 30.0f, 0.0f);
+	transform.scale = Vector3(25.0f, 25.0f, 0.0f);
 
 	Key = "Bullet";
 

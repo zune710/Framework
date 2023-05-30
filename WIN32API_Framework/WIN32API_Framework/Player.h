@@ -5,6 +5,12 @@ class Player : public GameObject
 {
 private:
 	enum STATE {IDLE, RUN, JUMP, DIVE, ROLL, ATTACK, HIT,  DIE, CLIMB};
+
+	bool Attack;
+	bool Roll;
+	bool isJumping;
+	int Direction;
+
 public:
 	virtual GameObject* Start()override;
 	virtual int Update()override;
@@ -17,6 +23,11 @@ public:
 	GameObject* CreateBullet(string _Key);
 	
 	void PlayAnimation(STATE _State);
+
+	void SetFrame(int _frame, int _locomotion, int _endFrame, float _frameTime);
+	void OnAttack();
+	void OnMove();
+	void OnRoll();
 public:
 	Player();
 	Player(Transform _transform) : GameObject(_transform) {}
