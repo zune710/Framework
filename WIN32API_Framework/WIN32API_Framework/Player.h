@@ -15,6 +15,7 @@ public:
 public:
 	template <typename T>
 	GameObject* CreateBullet(string _Key);
+	
 	void PlayAnimation(STATE _State);
 public:
 	Player();

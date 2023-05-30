@@ -160,9 +160,11 @@ void Player::PlayAnimation(STATE _State)
 	{
 	case IDLE:
 		frame.EndFrame = 7;
+		frame.FrameTime = 50;
 		break;
 	case RUN:
 		frame.EndFrame = 7;
+		frame.FrameTime = 50;
 		break;
 	case JUMP:
 		break;
@@ -172,6 +174,7 @@ void Player::PlayAnimation(STATE _State)
 		break;
 	case ATTACK:
 		frame.EndFrame = 4;
+		frame.FrameTime = 50;
 		break;
 	case HIT:
 		break;
