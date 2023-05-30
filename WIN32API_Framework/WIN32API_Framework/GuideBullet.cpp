@@ -16,11 +16,11 @@ void GuideBullet::Start()
 
 void GuideBullet::Update(Transform& transform)
 {
-	float Horizontal = Target->GetPosition().x - transform.position.x;
-	float Vertical = Target->GetPosition().y - transform.position.y;
+	float Horizontal = (Target->GetPosition().x + Target->GetScale().x * 0.5f) - transform.position.x;
+	float Vertical = (Target->GetPosition().y + Target->GetScale().y * 0.5f) - transform.position.y;
 
 	float value = (Horizontal * Horizontal) + (Vertical * Vertical);
-	float Distance = sqrt((double)value);
+	float Distance = (float)sqrt((double)value);
 
 	Vector3 Direction;
 

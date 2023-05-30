@@ -3,6 +3,8 @@
 
 class Player : public GameObject
 {
+private:
+	enum STATE {IDLE, RUN, JUMP, DIVE, ROLL, ATTACK, HIT,  DIE, CLIMB};
 public:
 	virtual GameObject* Start()override;
 	virtual int Update()override;
@@ -13,6 +15,7 @@ public:
 public:
 	template <typename T>
 	GameObject* CreateBullet(string _Key);
+	void PlayAnimation(STATE _State);
 public:
 	Player();
 	Player(Transform _transform) : GameObject(_transform) {}

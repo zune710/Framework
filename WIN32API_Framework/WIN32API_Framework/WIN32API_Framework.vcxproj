@@ -195,7 +195,6 @@
     <ResourceCompile Include="WIN32API_Framework.rc" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="bitmap1.bmp" />
     <Image Include="small.ico" />
     <Image Include="WIN32API_Framework.ico" />
   </ItemGroup>

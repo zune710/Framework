@@ -6,12 +6,14 @@ class Bridge;
 class GameObject
 {
 protected:
+	Frame frame;
+	ULONGLONG Time;
+
 	Transform transform;
 	float Speed;
 	string Key;
 
 	Bridge* pBridge;
-
 	static map<string, Bitmap*>* m_ImageList;
 public:
 	static void SetImageList(map<string, Bitmap*>* _ImageList) { m_ImageList = _ImageList; }
@@ -37,6 +39,6 @@ public:
 	void SetBridge(Bridge* _bridge) { pBridge = _bridge; }
 public:
 	GameObject();
-	GameObject(Transform _transform) : transform(_transform), Speed(0.0f), pBridge(nullptr) {}
+	GameObject(Transform _transform) : transform(_transform), Speed(0.0f), pBridge(nullptr), Time(0), frame({ 0, }) {}
 	virtual ~GameObject();
 };
