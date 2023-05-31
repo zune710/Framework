@@ -64,7 +64,7 @@ int main(void)
 	// -> 여전히 있으면 어쩔 수 없음. 버퍼가 하나뿐이라 쓰고 지우는 게 보이는 것
 	while (true)
 	{
-		if (time + 50 < GetTickCount64())
+		if (time + 100 < GetTickCount64())
 		{
 			time = GetTickCount64();
 
@@ -72,28 +72,20 @@ int main(void)
 			system("cls");
 
 			if (GetAsyncKeyState(VK_UP))
-			{
 				if (pickPos.y > 0)
 					pickPos.y -= scale.y;
-			}
 
 			if (GetAsyncKeyState(VK_DOWN))
-			{
-				if (pickPos.y < COUNT_Y)
+				if (pickPos.y < (COUNT_Y - 1) * scale.y)
 					pickPos.y += scale.y;
-			}
 
 			if (GetAsyncKeyState(VK_LEFT))
-			{
 				if (pickPos.x > 0)
 					pickPos.x -= scale.x;
-			}
 
 			if (GetAsyncKeyState(VK_RIGHT))
-			{
-				if (pickPos.x < COUNT_X)
+				if (pickPos.x < (COUNT_X - 1) * scale.x)
 					pickPos.x += scale.x;;
-			}
 
 			for (int y = 0; y < COUNT_Y; ++y)
 			{
@@ -120,18 +112,17 @@ int main(void)
 					char* buffer = new char[4];
 					_itoa(index, buffer, 10); // int to ascii
 
+					int posX = int(position.x - (scale.x * 0.5f) + scale.x * x);
+					int posY = int(position.y - (scale.y * 0.5f) + scale.y * y);
 
-					if ((int)pickPos.x == int(position.x - (scale.x * 0.5f) + scale.x * x))
-					{
-						if ((int)pickPos.y == int(position.y - (scale.y * 0.5f) + scale.y * y))
-							SetColor(14);
-						else
-							SetColor(12);
-					}
+					if ((int)pickPos.x == posX && (int)pickPos.y == posY)
+						SetColor(14);
 					else
-						SetColor(12);  // 한번 바꾸면 계속 바껴 있으므로 맨 위에 SetColor(7);(기본색) 필요. 아래에도 필요(콘솔창 맨 아래 설명? 텍스트색은 변경 안 되도록).
+						SetColor(12);
+					// 색 한번 바꾸면 계속 바껴 있으므로 맨 위에 SetColor(7);(기본색) 필요.
+					// 아래에도 필요(콘솔창 맨 아래 설명? 텍스트색은 변경 안 되도록).
 
-
+					// index 출력
 					Text(position.x - 1 + scale.x * x,  // 밀리기 때문에 한 칸 앞으로
 						position.y - (scale.y * 0.5f) + scale.y * y + 1,
 						string(buffer));
@@ -142,8 +133,6 @@ int main(void)
 			Sleep(50);
 		}
 	}
-
-	
 	
 	SetColor(7);
 
