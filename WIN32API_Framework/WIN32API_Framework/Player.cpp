@@ -11,7 +11,7 @@
 #include "Bitmap.h"
 
 
-Player::Player() : Attack(false), Roll(false), Hit(false)
+Player::Player() : Attack(false), Roll(false), Hit(false), Dead(false)
 {
 
 }
@@ -24,18 +24,23 @@ Player::~Player()
 GameObject* Player::Start()
 {
 	Attack = false;
+	Roll = false;
+	Hit = false;
+	Dead = false;
 
+	GameOver = false;
 
 	frame.CountX = 0;
 	frame.CountY = 0;
 	frame.EndFrame = 7;
-	frame.FrameTime = 50;  // 0.05√ 
+	frame.FrameTime = 100;  // 0.1√ 
 	
-	transform.position = Vector3(WIDTH * 0.5f, HEIGHT * 0.5f, 0.0f);  // ¡§¡ﬂæ”
+	transform.position = Vector3(WIDTH * 0.5f, HEIGHT * 0.5f, 0.0f);
 	transform.direction = Vector3(0.0f, 0.0f, 0.0f);
 	transform.scale = Vector3(679 / 7, 639 / 9, 0.0f);
 	
 	Speed = 5.0f;
+	HP = 100;
 
 	Key = "PlayerR";
 
@@ -46,14 +51,24 @@ GameObject* Player::Start()
 
 int Player::Update()
 {
+	if (GameOver)
+		return 0;
+	
 	if (Time + frame.FrameTime < GetTickCount64())
 	{
 		Time = GetTickCount64();
-
 		++frame.CountX;
 
 		if (frame.CountX == frame.EndFrame)
 		{
+			if (Dead)
+			{
+				frame.CountX = frame.EndFrame - 1;
+				Dead = false;
+				GameOver = true;
+				return 0;
+			}
+
 			frame.CountX = 0;
 
 			if (Attack)
@@ -67,8 +82,11 @@ int Player::Update()
 		}
 	}
 
-	DWORD dwKey = GetSingle(InputManager)->GetKey();
+	if (Dead)
+		return 0;
 
+	DWORD dwKey = GetSingle(InputManager)->GetKey();
+	
 	if (dwKey & KEYID_UP)
 		transform.position.y -= Speed;
 
@@ -112,6 +130,9 @@ int Player::Update()
 		for (list<GameObject*>::iterator iter = EnemyList->begin(); iter != EnemyList->end(); ++iter)
 			if (CollisionManager::CircleCollision(*iter, this))
 				OnHit();
+
+	if (HP <= 0)
+		OnDie();
 
 	return 0;
 }
@@ -187,7 +208,7 @@ void Player::SetFrame(STATE _State)
 	{
 	case IDLE:
 		frame.EndFrame = 7;
-		frame.FrameTime = 50;
+		frame.FrameTime = 100;
 		break;
 
 	case RUN:
@@ -238,7 +259,10 @@ void Player::SetFrame(int _frame, int _locomotion, int _endFrame, float _frameTi
 	frame.CountX = _frame;
 	frame.CountY = _locomotion;
 	frame.EndFrame = _endFrame;
-	frame.FrameTime = _frameTime;
+	frame.FrameTime = _frameTime / _endFrame;
+
+	//IDLE: SetFrame(0, 0, 7, 150);
+	//ATTACK: SetFrame(0, 5, 4, 1500);
 }
 
 void Player::OnAttack()
@@ -248,6 +272,7 @@ void Player::OnAttack()
 
 	Attack = true;
 	SetFrame(ATTACK);
+	//SetFrame(0, 5, 4, 1500);
 
 	GetSingle(ObjectManager)->AddObject(CreateBullet<NormalBullet>("NormalBullet"));
 }
@@ -270,6 +295,17 @@ void Player::OnHit()
 
 	Hit = true;
 	SetFrame(HIT);
+
+	--HP;
+}
+
+void Player::OnDie()
+{
+	if (Dead)
+		return;
+
+	Dead = true;
+	SetFrame(DIE);
 }
 
 

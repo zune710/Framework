@@ -16,10 +16,7 @@ SceneManager::~SceneManager()
 void SceneManager::SetScene(SCENEID _State)
 {
 	if (SceneState != nullptr)
-	{
-		delete SceneState;
-		SceneState = nullptr;
-	}
+		::Safe_Release(SceneState);  // ::붙여서 인라인 함수임을 보여준다.
 
 	switch (_State)
 	{
@@ -51,6 +48,5 @@ void SceneManager::Render(HDC hdc)
 
 void SceneManager::Destroy()
 {
-	delete SceneState;
-	SceneState = nullptr;
+	::Safe_Release(SceneState);
 }

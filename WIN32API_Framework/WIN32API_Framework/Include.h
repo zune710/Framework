@@ -1,6 +1,6 @@
 #pragma once
 #define _CRT_SECURE_NO_WARNINGS
-#define DEBUG  // DEBUG할 때만 주석 해제
+//#define DEBUG  // DEBUG할 때만 주석 해제
 
 #include <vector>
 #include <list>

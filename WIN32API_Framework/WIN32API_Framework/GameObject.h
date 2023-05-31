@@ -11,6 +11,7 @@ protected:
 
 	Transform transform;
 	float Speed;
+	int HP;
 	string Key;
 
 	Bridge* pBridge;
@@ -42,6 +43,6 @@ public:
 	void SetBridge(Bridge* _bridge) { pBridge = _bridge; }
 public:
 	GameObject();
-	GameObject(Transform _transform) : transform(_transform), Speed(0.0f), pBridge(nullptr), Time(0), frame({ 0, }) {}
+	GameObject(Transform _transform) : transform(_transform), Speed(0.0f), HP(0), pBridge(nullptr), Time(0), frame({ 0, }) {}
 	virtual ~GameObject();
 };

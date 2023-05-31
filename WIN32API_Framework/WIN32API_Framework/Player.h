@@ -4,11 +4,15 @@
 class Player : public GameObject
 {
 private:
-	enum STATE {IDLE, RUN, JUMP, DIVE, ROLL, ATTACK, HIT,  DIE, CLIMB};
+	enum STATE {IDLE, RUN, JUMP, DIVE, ROLL, ATTACK, HIT, DIE, CLIMB};
 
 	bool Attack;
 	bool Roll;
 	bool Hit;
+	bool Dead;
+
+	bool GameOver;  // юс╫ц
+
 public:
 	virtual GameObject* Start()override;
 	virtual int Update()override;
@@ -25,9 +29,10 @@ public:
 	void OnAttack();
 	void OnRoll();
 	void OnHit();
+	void OnDie();
 public:
 	Player();
-	Player(Transform _transform) : GameObject(_transform), Attack(false), Roll(false), Hit(false) {}
+	Player(Transform _transform) : GameObject(_transform), Attack(false), Roll(false), Hit(false), Dead(false) {}
 	virtual ~Player();
 };
 

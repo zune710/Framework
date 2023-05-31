@@ -4,6 +4,7 @@ extern HWND g_hWnd;
 
 const int COUNT = 128;
 
+#define PI 3.141592f
 
 #define WIDTH  740
 #define HEIGHT 986
@@ -41,3 +42,14 @@ private:						    \
 	T& operator=(const T&) = delete;
 
 #define GetSingle(T) (*T::GetInstance())
+
+
+template <typename T>
+inline void Safe_Release(T& _Object)  // 안전한 삭제 위한 것
+{
+	if (_Object)
+	{
+		delete _Object;
+		_Object = nullptr;
+	}
+}
