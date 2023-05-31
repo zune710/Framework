@@ -11,6 +11,16 @@ private:
 	bool Hit;
 	bool Dead;
 
+	bool isJumping;
+	float jumpHeight;
+	float flightTime;
+
+	int Direction;
+
+	int Option;
+	float oldY;
+	float curentY;
+
 	bool GameOver;  // юс╫ц
 
 public:
@@ -30,6 +40,10 @@ public:
 	void OnRoll();
 	void OnHit();
 	void OnDie();
+
+	void OnAttack_();
+	void OnMove();
+	void OnJump();
 public:
 	Player();
 	Player(Transform _transform) : GameObject(_transform), Attack(false), Roll(false), Hit(false), Dead(false) {}
