@@ -20,8 +20,7 @@ public:
 	template <typename T>
 	GameObject* CreateBullet(string _Key);
 	
-	void PlayAnimation(STATE _State);
-
+	void SetFrame(STATE _State);
 	void SetFrame(int _frame, int _locomotion, int _endFrame, float _frameTime);
 	void OnAttack();
 	void OnRoll();
