@@ -192,14 +192,12 @@ void Player::SetFrame(STATE _State)
 		break;
 
 	case ROLL:
-		Roll = false;
 		frame.CountX = 1;
 		frame.EndFrame = 3;
 		frame.FrameTime = 70;
 		break;
 
 	case ATTACK:
-		Attack = false;
 		frame.EndFrame = 4;
 		frame.FrameTime = 100;
 		break;
