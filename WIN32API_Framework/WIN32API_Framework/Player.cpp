@@ -4,13 +4,14 @@
 #include "InputManager.h"
 #include "Prototype.h"
 #include "ObjectPool.h"
+#include "CollisionManager.h"
 
 #include "NormalBullet.h"
 #include "GuideBullet.h"
 #include "Bitmap.h"
 
 
-Player::Player() : Attack(false), Roll(false)
+Player::Player() : Attack(false), Roll(false), Hit(false)
 {
 
 }
@@ -60,6 +61,9 @@ int Player::Update()
 
 			if (Roll)
 				Roll = false;
+
+			if (Hit)
+				Hit = false;
 		}
 	}
 
@@ -85,19 +89,29 @@ int Player::Update()
 		Key = "PlayerR";
 	}
 
-	if (dwKey & KEYID_SPACE)
-		OnAttack();
+	if (!Hit)
+	{
+		if (dwKey & KEYID_SPACE)
+			OnAttack();
 
-	if (dwKey & KEYID_CONTROL)
-		OnRoll();
+		if (dwKey & KEYID_CONTROL)
+			OnRoll();
+	}
 
-	if (!Attack && !Roll)
+	if (!Attack && !Roll && !Hit)
 	{
 		if (dwKey == 0)
 			SetFrame(IDLE);
 		else
 			SetFrame(RUN);
 	}
+
+	list<GameObject*>* EnemyList = GetSingle(ObjectManager)->GetObjectList("Enemy");
+	
+	if (EnemyList != nullptr && !EnemyList->empty())
+		for (list<GameObject*>::iterator iter = EnemyList->begin(); iter != EnemyList->end(); ++iter)
+			if (CollisionManager::CircleCollision(*iter, this))
+				OnHit();
 
 	return 0;
 }
@@ -247,6 +261,15 @@ void Player::OnRoll()
 	SetFrame(ROLL);
 
 	GetSingle(ObjectManager)->AddObject(CreateBullet<GuideBullet>("GuideBullet"));
+}
+
+void Player::OnHit()
+{
+	if (Hit)
+		return;
+
+	Hit = true;
+	SetFrame(HIT);
 }
 
 

@@ -8,7 +8,7 @@ private:
 
 	bool Attack;
 	bool Roll;
-
+	bool Hit;
 public:
 	virtual GameObject* Start()override;
 	virtual int Update()override;
@@ -24,9 +24,10 @@ public:
 	void SetFrame(int _frame, int _locomotion, int _endFrame, float _frameTime);
 	void OnAttack();
 	void OnRoll();
+	void OnHit();
 public:
 	Player();
-	Player(Transform _transform) : GameObject(_transform), Attack(false), Roll(false) {}
+	Player(Transform _transform) : GameObject(_transform), Attack(false), Roll(false), Hit(false) {}
 	virtual ~Player();
 };
 
