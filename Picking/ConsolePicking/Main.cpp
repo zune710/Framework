@@ -59,9 +59,6 @@ int main(void)
 	pickPos.x = 0;
 	pickPos.y = 0;
 
-	// 계속 덮어써서 깜박거리는 현상 발생(잔상 남는 것) -> system(""cls"); 필요
-	// -> 그래도 깜박이는데 time + 50 해주면 됨
-	// -> 여전히 있으면 어쩔 수 없음. 버퍼가 하나뿐이라 쓰고 지우는 게 보이는 것
 	while (true)
 	{
 		if (time + 100 < GetTickCount64())
@@ -107,10 +104,10 @@ int main(void)
 						"└─┘");
 
 					// ** index 확인
-					int index = y * COUNT_X + x;  // y: 몇 번째 칸에 있는지, cntX: 몇 개까지 출력하는지, x: 1씩 증가하며 더해줌
+					int index = y * COUNT_X + x;
 
 					char* buffer = new char[4];
-					_itoa(index, buffer, 10); // int to ascii
+					_itoa(index, buffer, 10);
 
 					int posX = int(position.x - (scale.x * 0.5f) + scale.x * x);
 					int posY = int(position.y - (scale.y * 0.5f) + scale.y * y);
@@ -119,11 +116,9 @@ int main(void)
 						SetColor(14);
 					else
 						SetColor(12);
-					// 색 한번 바꾸면 계속 바껴 있으므로 맨 위에 SetColor(7);(기본색) 필요.
-					// 아래에도 필요(콘솔창 맨 아래 설명? 텍스트색은 변경 안 되도록).
 
 					// index 출력
-					Text(position.x - 1 + scale.x * x,  // 밀리기 때문에 한 칸 앞으로
+					Text(position.x - 1 + scale.x * x,
 						position.y - (scale.y * 0.5f) + scale.y * y + 1,
 						string(buffer));
 				}
@@ -149,19 +144,6 @@ void SetCursorPosition(const float& _x, const float& _y)
 
 void SetColor(int _color)
 {
-	/*
-	// #1.
-	SetConsoleTextAttribute(
-		GetStdHandle(STD_OUTPUT_HANDLE), _color);  // GetStdHandle(): api GetDC 함수와 비슷. STD_OUTPUT_HANDLE은 콘솔창 속성 받아오겠다는 것(기본 핸들). 출력하는 핸들?
-
-	// #2.
-	HANDLE handle;  // 핸들 직접 만들 수도 있음. 위의 출력하는? 핸들과 다름. 더블 버퍼 사용할 때 주로 핸들 만들어서 사용.
-
-	SetConsoleTextAttribute(
-		handle, _color);
-	*/
-
-	// #3.
 	HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
 
 	SetConsoleTextAttribute(
