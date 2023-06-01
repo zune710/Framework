@@ -13,9 +13,6 @@ using namespace std;
 // ** 타일 최대 개수
 const int MAX = COUNT_X * COUNT_Y;
 
-// ** 타일 크기
-const Vector3 scale(6, 3);
-
 // ** 색
 #define BLACK		0
 #define DARKBLUE	1
@@ -94,6 +91,9 @@ typedef struct tagInfo
 	tagInfo() : option(0) {}
 } Info;
 
+
+// ** 타일 크기
+const Vector3 scale(6, 3);
 
 list<Tile*> BlackTileList;
 
