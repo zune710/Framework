@@ -10,7 +10,6 @@ using namespace std;
 #define COUNT_X 5
 #define COUNT_Y 5
 
-
 // ** 텍스트 색
 #define BLACK		0
 #define DARKBLUE	1
@@ -49,6 +48,7 @@ typedef struct tagTile
 	string tile[3];
 	int option;
 	int index;
+	int value;
 	int color;
 
 	void Render(int _color = 15)
@@ -58,12 +58,12 @@ typedef struct tagTile
 
 		char* buffer = new char[4];
 
-		_itoa(index, buffer, 10);
+		_itoa(value, buffer, 10);  // 값 랜덤 출력
 
 		Text(position[1].x + 2, position[1].y, string(buffer), _color);
 	}
 
-	tagTile() : option(0), index(0) {}
+	tagTile() : option(0), index(0), color(15) {}
 } Tile;
 
 typedef struct tagInfo
@@ -90,6 +90,11 @@ int main(void)
 	// ** 타일 위치
 	vector<Tile*> TileList;
 
+	int idx[MAX];
+	for (int i = 0; i < MAX; ++i)
+		idx[i] = i;
+
+
 	int x = 0;
 	int y = 0;
 
@@ -109,6 +114,7 @@ int main(void)
 		tile->option = 0;
 		tile->color = 15;
 		tile->index = y * COUNT_X + x;
+		tile->value = tile->index + 1;
 
 		x++;
 
@@ -121,11 +127,29 @@ int main(void)
 		TileList.push_back(tile);
 	}
 
+	for (int i = 0; i < COUNT_Y * COUNT_X * 2; ++i)
+	{
+		int random1 = rand() % 25;
+		int random2 = rand() % 25;
+
+		if (random1 == random2)
+			continue;
+		else
+		{
+			int value = TileList[random1]->value;
+			TileList[random1]->value = TileList[random2]->value;
+			TileList[random2]->value = value;
+
+		}
+	}
+
+
 	// ** Target
 	Info Cursor;
 
 	Cursor.position = Vector3(15.0f, 8.0f);
 	Cursor.option = 0;
+
 
 	srand((unsigned int)GetTickCount64());
 	
@@ -167,7 +191,7 @@ int main(void)
 				(*iter)->Render();
 			*/
 
-			if (GetAsyncKeyState(VK_SPACE))
+			if (GetAsyncKeyState(VK_RETURN))
 				index = 0;
 
 			if (GetAsyncKeyState(VK_UP))
