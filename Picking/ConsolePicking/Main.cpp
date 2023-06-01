@@ -77,12 +77,26 @@ int main(void)
 					pickPos.y += scale.y;
 
 			if (GetAsyncKeyState(VK_LEFT))
+			{
 				if (pickPos.x > 0)
 					pickPos.x -= scale.x;
+				else if (pickPos.y > 0)
+				{
+					pickPos.x = (COUNT_X - 1) * scale.x;
+					pickPos.y -= scale.y;
+				}
+			}
 
 			if (GetAsyncKeyState(VK_RIGHT))
+			{
 				if (pickPos.x < (COUNT_X - 1) * scale.x)
-					pickPos.x += scale.x;;
+					pickPos.x += scale.x;
+				else if (pickPos.y < (COUNT_Y - 1) * scale.y)
+				{
+					pickPos.x = 0;
+					pickPos.y += scale.y;
+				}
+			}
 
 			for (int y = 0; y < COUNT_Y; ++y)
 			{
@@ -146,8 +160,7 @@ void SetColor(int _color)
 {
 	HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
 
-	SetConsoleTextAttribute(
-		handle, _color);
+	SetConsoleTextAttribute(handle, _color);
 }
 
 void Text(const float& _x, const float& _y, const string& _str)
