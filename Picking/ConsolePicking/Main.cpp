@@ -245,6 +245,19 @@ int main(void)
 			{
 				if (index == i)
 				{
+					int Color;
+
+					if (TileList[index]->option)
+						Color = YELLOW;
+					else
+						Color = GREEN;
+
+					for(int j = 0; j < 4; ++j)
+						Text(TileList[index]->position[j].x,
+							TileList[index]->position[j].y,
+							TileList[index]->tile[j],
+							Color);
+					/*
 					Text(TileList[index]->position[0].x, 
 						TileList[index]->position[0].y, 
 						TileList[index]->tile[0],
@@ -264,6 +277,7 @@ int main(void)
 						TileList[index]->position[3].y,
 						TileList[index]->tile[3],
 						GREEN);
+					*/
 				}
 				else
 					TileList[i]->Render();
