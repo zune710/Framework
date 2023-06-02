@@ -4,7 +4,7 @@
 #include "Object.h"
 #include "ImageManager.h"
 
-Stage::Stage() : object(nullptr), ImageList(nullptr)
+Stage::Stage() : ImageList(nullptr)
 {
 }
 
@@ -21,7 +21,9 @@ void Stage::Start()
 	{
 		Object* object = new Tile;
 		object->Start();
-		object->SetPosition(Vector3(32 * x, 32 * y));
+		object->SetPosition(
+			Vector3(object->GetScale().x * x + object->GetScale().x * 0.5f, 
+				object->GetScale().y * y + object->GetScale().y * 0.5f));
 		
 		++x;
 
@@ -44,16 +46,28 @@ void Stage::Start()
 
 void Stage::Update()
 {
-	object->Update();
+	for (list<Object*>::iterator iter = ObjectList.begin(); iter != ObjectList.end(); ++iter)
+		(*iter)->Update();
+
+	//object->Update();
 }
 
 void Stage::Render(HDC _hdc)
 {
-	object->Render(_hdc);
+	for (list<Object*>::iterator iter = ObjectList.begin(); iter != ObjectList.end(); ++iter)
+		(*iter)->Render(_hdc);
+	
+	//object->Render(_hdc);
 }
 
 void Stage::Destroy()
 {
-	delete object;
-	object = nullptr;
+	for (list<Object*>::iterator iter = ObjectList.begin(); iter != ObjectList.end(); ++iter)
+	{
+		delete (*iter);
+		(*iter) = nullptr;
+	}
+	
+	//delete object;
+	//object = nullptr;
 }

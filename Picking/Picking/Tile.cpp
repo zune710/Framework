@@ -61,13 +61,13 @@ void Tile::Update()
 			}
 		}
 	}
-	*/
 
 	if (GetAsyncKeyState(VK_RETURN))
 	{
 		check = !check;
 		Sleep(80);
 	}
+	*/
 
 	if (position.x - (scale.x * 0.5f) < ptMouse.x &&
 		position.y - (scale.y * 0.5f) < ptMouse.y &&

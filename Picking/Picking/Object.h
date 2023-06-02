@@ -16,7 +16,10 @@ public:
 	virtual void Render(HDC _hdc)PURE;
 	virtual void Destroy()PURE;
 public:
+	Vector3 GetPosition()const { return position; }
 	void SetPosition(const Vector3& _position) { position = _position; }
+
+	Vector3 GetScale()const { return scale; }
 public:
 	Object();
 	virtual ~Object();

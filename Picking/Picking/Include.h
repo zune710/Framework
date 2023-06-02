@@ -17,7 +17,7 @@ using namespace std;
 
 extern HWND g_hWnd;
 
-#define WIDTH 32 * 5
-#define HEIGHT 32 * 5
-#define COUNT_X 5
-#define COUNT_Y 5
+#define COUNT_X 20
+#define COUNT_Y 20
+#define WIDTH 32 * COUNT_X
+#define HEIGHT 32 * COUNT_Y
