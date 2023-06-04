@@ -115,8 +115,14 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 {
    hInst = hInstance; // 인스턴스 핸들을 전역 변수에 저장합니다.
 
+   // 상단 타이틀바, 좌우하단 윈도우 프레임 포함한 크기 계산
+   RECT rc = { 0, 0, WIDTH, HEIGHT };
+   AdjustWindowRect(&rc, WS_OVERLAPPEDWINDOW, TRUE);
+   int width = rc.right - rc.left;
+   int height = rc.bottom - rc.top;
+
    HWND hWnd = g_hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
-      CW_USEDEFAULT, 0, WIDTH, HEIGHT, 0, nullptr, nullptr, hInstance, nullptr);
+      CW_USEDEFAULT, 0, width, height, 0, nullptr, nullptr, hInstance, nullptr);
 
    if (!hWnd)
    {
