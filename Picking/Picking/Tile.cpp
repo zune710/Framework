@@ -76,6 +76,22 @@ void Tile::Update()
 	{
 		if (GetAsyncKeyState(VK_LBUTTON) & 0x8000)
 		{
+			// 두 가지 색만 사용
+			check = !check;
+
+			if (check)  // GREEN
+			{
+				cntX = 1;
+				cntY = 1;
+			}
+			else  // RED
+			{
+				cntX = 1;
+				cntY = 0;
+			}
+			
+			/*
+			// 색상 순서대로 변경
 			++cntX;
 
 			if (cntX == 4)
@@ -86,6 +102,7 @@ void Tile::Update()
 				if (cntY == 2)
 					cntY = 0;
 			}
+			*/
 
 			Sleep(80);
 		}
@@ -94,13 +111,29 @@ void Tile::Update()
 
 void Tile::Render(HDC _hdc)
 {
+	BitBlt(_hdc,
+		int(position.x - (scale.x * 0.5f)),
+		int(position.y - (scale.y * 0.5f)),
+		(int)scale.x,
+		(int)scale.y,
+		(*m_pImageList)[Key]->GetMemDC(),
+		int(scale.x * cntX),
+		int(scale.y * cntY),
+		SRCCOPY);
+
+	/*
 	TransparentBlt(_hdc,
 		int(position.x - (scale.x * 0.5f)),
 		int(position.y - (scale.y * 0.5f)),
-		(int)scale.x, (int)scale.y,
+		(int)scale.x,
+		(int)scale.y,
 		(*m_pImageList)[Key]->GetMemDC(),
-		int(scale.x * cntX), int(scale.y * cntY),
-		(int)scale.x, (int)scale.y, RGB(255, 255, 255));
+		int(scale.x * cntX),
+		int(scale.y * cntY),
+		(int)scale.x,
+		(int)scale.y,
+		RGB(255, 255, 255));
+	*/
 
 	/*
 	if(check)
