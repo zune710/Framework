@@ -5,10 +5,8 @@ class Tile : public Object
 {
 private:
 	int check;
-	//Vector3 position;
-	//Vector3 scale;
-	string Key;
 	int cntX, cntY;
+	string Key;
 public:
 	virtual void Start()override;
 	virtual void Update()override;

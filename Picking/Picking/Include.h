@@ -17,6 +17,7 @@ using namespace std;
 
 extern HWND g_hWnd;
 
+
 #define COUNT_X 20
 #define COUNT_Y 20
 #define WIDTH 32 * COUNT_X

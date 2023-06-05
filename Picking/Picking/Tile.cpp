@@ -121,19 +121,6 @@ void Tile::Render(HDC _hdc)
 		int(scale.y * cntY),
 		SRCCOPY);
 
-	/*
-	TransparentBlt(_hdc,
-		int(position.x - (scale.x * 0.5f)),
-		int(position.y - (scale.y * 0.5f)),
-		(int)scale.x,
-		(int)scale.y,
-		(*m_pImageList)[Key]->GetMemDC(),
-		int(scale.x * cntX),
-		int(scale.y * cntY),
-		(int)scale.x,
-		(int)scale.y,
-		RGB(255, 255, 255));
-	*/
 
 	/*
 	if(check)
