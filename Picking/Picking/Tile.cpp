@@ -42,6 +42,16 @@ int Tile::Update()
 
 			Sleep(80);
 		}
+
+		if (GetAsyncKeyState(VK_RBUTTON) & 0x8000)  // ±ê¹ß
+		{
+			if (!hor)
+				hor = 11;
+			else if (hor == 11)
+				hor = 0;
+
+			Sleep(100);
+		}
 	}
 
 	if (GetAsyncKeyState(VK_TAB))
@@ -49,6 +59,7 @@ int Tile::Update()
 		hor = Option;
 	}
 
+	return 0;
 }
 
 void Tile::Render(HDC _hdc)

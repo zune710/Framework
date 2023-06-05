@@ -12,6 +12,9 @@ public:
 	virtual void Render(HDC _hdc)override;
 	virtual void Destroy()override;
 public:
+	int GetHorizontal()const { return hor; }
+	void SetHorizontal(const int& _hor) { hor = _hor; }
+public:
 	Tile();
 	virtual ~Tile();
 };

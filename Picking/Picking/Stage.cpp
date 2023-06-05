@@ -14,6 +14,9 @@ Stage::~Stage()
 void Stage::Start()
 {
 	ImageList["Tile"] = (new Bitmap)->LoadBmp(L"../Resource/Tile.bmp");
+	ImageList["Buffer"] = (new Bitmap)->LoadBmp(L"../Resource/Buffer.bmp");
+	ImageList["GameOver"] = (new Bitmap)->LoadBmp(L"../Resource/GameOver.bmp");
+	ImageList["GameClear"] = (new Bitmap)->LoadBmp(L"../Resource/GameClear.bmp");
 
 	// 지뢰 개수
 	int mine = 150;
@@ -25,13 +28,13 @@ void Stage::Start()
 			Object* tile = new Tile;
 			tile->Start();
 			
+			tile->SetIndex(y * COUNT_X + x);
+
 			if (mine)
 			{
 				--mine;
 				tile->SetOption(10);
 			}
-
-			tile->SetIndex(y * COUNT_X + x);
 
 			tile->SetPosition(Vector3(
 				(x * SCALE_X) + (SCALE_X * 0.5f), 
@@ -80,18 +83,22 @@ void Stage::Start()
 
 		// 오른쪽 위
 		index = TileList[i]->GetIndex() - COUNT_X + 1;
-		if (0 <= index && index < MAX && index % COUNT_X != 0 &&
+		if (0 <= index && index < MAX && 
+			TileList[i]->GetPosition().x < TileList[index]->GetPosition().x &&
 			TileList[index]->GetOption() == 10)
 			++count;
 
 		// 오른쪽
 		index = TileList[i]->GetIndex() + 1;
-		if (index < MAX && index % COUNT_X != 0 && TileList[index]->GetOption() == 10)
+		if (index < MAX && 
+			TileList[i]->GetPosition().x < TileList[index]->GetPosition().x && 
+			TileList[index]->GetOption() == 10)
 			++count;
 
 		// 오른쪽 아래
 		index = TileList[i]->GetIndex() + COUNT_X + 1;
-		if (index < MAX && index % COUNT_X != 0 && index < MAX &&
+		if (index < MAX && 
+			TileList[i]->GetPosition().x < TileList[index]->GetPosition().x &&
 			TileList[index]->GetOption() == 10)
 			++count;
 
@@ -102,28 +109,27 @@ void Stage::Start()
 
 		// 왼쪽 아래
 		index = TileList[i]->GetIndex() + COUNT_X - 1;
-		if (0 <= index && index < MAX && index % COUNT_X != COUNT_X - 1 &&
+		if (0 <= index && index < MAX && 
+			TileList[index]->GetPosition().x < TileList[i]->GetPosition().x &&
 			TileList[index]->GetOption() == 10)
 			++count;
 
 		// 왼쪽
 		index = TileList[i]->GetIndex() - 1;
-		if(0 <= index && index % COUNT_X != COUNT_X - 1 && 
+		if(0 <= index && 
+			TileList[index]->GetPosition().x < TileList[i]->GetPosition().x &&
 			TileList[index]->GetOption() == 10)
 			++count;
 
 		// 왼쪽 위
 		index = TileList[i]->GetIndex() - COUNT_X - 1;
-		if (0 <= index && index % COUNT_X != COUNT_X - 1 &&
+		if (0 <= index && 
+			TileList[index]->GetPosition().x < TileList[i]->GetPosition().x &&
 			TileList[index]->GetOption() == 10)
 			++count;
 
 		TileList[i]->SetOption(count + 1);
 	}
-
-
-
-
 
 	Object::SetImageList(&ImageList);
 }
@@ -131,22 +137,133 @@ void Stage::Start()
 void Stage::Update()
 {
 	for (vector<Object*>::iterator iter = TileList.begin(); iter != TileList.end(); ++iter)
-	{
-		int result = (*iter)->Update();
-
-		if (result == 1)
+	{	
+		if ((*iter)->Update() == 1)
 		{
 			// ** 지뢰
+			Result = 1;
 		}
+	}
+
+	// ** 빈 타일 클릭하면 주변 타일 열기
+	for (int i = 0; i < TileList.size(); ++i)
+	{
+		if (((Tile*)TileList[i])->GetHorizontal() == 1)
+		{
+			// 위
+			int index = TileList[i]->GetIndex() - COUNT_X;
+			if (0 <= index)
+				((Tile*)TileList[index])->SetHorizontal(TileList[index]->GetOption());
+
+			// 오른쪽 위
+			index = TileList[i]->GetIndex() - COUNT_X + 1;
+			if (0 <= index && index < MAX && TileList[i]->GetPosition().x < TileList[index]->GetPosition().x)
+				((Tile*)TileList[index])->SetHorizontal(TileList[index]->GetOption());
+
+			// 오른쪽
+			index = TileList[i]->GetIndex() + 1;
+			if (index < MAX && TileList[i]->GetPosition().x < TileList[index]->GetPosition().x)
+				((Tile*)TileList[index])->SetHorizontal(TileList[index]->GetOption());
+
+			// 오른쪽 아래
+			index = TileList[i]->GetIndex() + COUNT_X + 1;
+			if (index < MAX &&
+				TileList[i]->GetPosition().x < TileList[index]->GetPosition().x)
+				((Tile*)TileList[index])->SetHorizontal(TileList[index]->GetOption());
+
+			// 아래
+			index = TileList[i]->GetIndex() + COUNT_X;
+			if (index < MAX)
+				((Tile*)TileList[index])->SetHorizontal(TileList[index]->GetOption());
+
+			// 왼쪽 아래
+			index = TileList[i]->GetIndex() + COUNT_X - 1;
+			if (0 <= index && index < MAX && TileList[index]->GetPosition().x < TileList[i]->GetPosition().x)
+				((Tile*)TileList[index])->SetHorizontal(TileList[index]->GetOption());
+
+			// 왼쪽
+			index = TileList[i]->GetIndex() - 1;
+			if (0 <= index && TileList[index]->GetPosition().x < TileList[i]->GetPosition().x)
+				((Tile*)TileList[index])->SetHorizontal(TileList[index]->GetOption());
+
+			// 왼쪽 위
+			index = TileList[i]->GetIndex() - COUNT_X - 1;
+			if (0 <= index && TileList[index]->GetPosition().x < TileList[i]->GetPosition().x)
+				((Tile*)TileList[index])->SetHorizontal(TileList[index]->GetOption());
+		}
+	}
+
+	int count = 0;
+	for (int i = 0; i < TileList.size(); ++i)
+	{
+		if (count > 150)
+			break;
+
+		if (((Tile*)TileList[i])->GetHorizontal() == 0 || ((Tile*)TileList[i])->GetHorizontal() == 11)
+			++count;
+	}
+
+	if (count == 150)
+	{
+		for (int i = 0; i < TileList.size(); ++i)
+		{
+			if (((Tile*)TileList[i])->GetHorizontal() == 0)
+				((Tile*)TileList[i])->SetHorizontal(11);
+		}
+
+		Result = 2; // 게임 클리어
 	}
 }
 
 void Stage::Render(HDC _hdc)
 {
 	for (vector<Object*>::iterator iter = TileList.begin(); iter != TileList.end(); ++iter)
+		(*iter)->Render(ImageList["Buffer"]->GetMemDC());
+
+	if (Result == 1)  // 지뢰 - Game Over
 	{
-		(*iter)->Render(_hdc);
+		for (vector<Object*>::iterator iter = TileList.begin(); iter != TileList.end(); ++iter)
+		{
+			((Tile*)*iter)->SetHorizontal((*iter)->GetOption());
+			
+		}
+		
+		TransparentBlt(ImageList["Buffer"]->GetMemDC(),
+			int(WIDTH * 0.5f - 80), int(HEIGHT * 0.5f - 32),
+			160, 64,
+			ImageList["GameOver"]->GetMemDC(),
+			0, 0,
+			160, 64,
+			RGB(255, 0, 255));
+		
+		/*
+		TransparentBlt(ImageList["Buffer"]->GetMemDC(),
+			0, 0,
+			int(COUNT_X * SCALE_X), int(COUNT_Y * SCALE_Y),
+			ImageList["GameOver"]->GetMemDC(),
+			0, 0,
+			int(COUNT_X * SCALE_X), int(COUNT_Y * SCALE_Y),
+			RGB(255, 0, 255));
+		*/
 	}
+	else if (Result == 2)
+	{
+		TransparentBlt(ImageList["Buffer"]->GetMemDC(),
+			int(WIDTH * 0.5f - 80), int(HEIGHT * 0.5f - 32),
+			160, 64,
+			ImageList["GameClear"]->GetMemDC(),
+			0, 0,
+			160, 64,
+			RGB(255, 0, 255));
+	}
+		
+
+	BitBlt(_hdc,
+		0, 0,
+		int(COUNT_X * SCALE_X), int(COUNT_Y * SCALE_Y),
+		ImageList["Buffer"]->GetMemDC(),
+		0, 0, 
+		SRCCOPY);
 }
 
 void Stage::Destroy()
