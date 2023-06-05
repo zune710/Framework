@@ -79,7 +79,7 @@ void Tile::Update()
 			// 두 가지 색만 사용
 			check = !check;
 
-			if (check)  // GREEN
+			if (check)  // BLUE
 			{
 				cntX = 1;
 				cntY = 1;
