@@ -4,15 +4,8 @@
 class Bitmap;
 class ImageManager
 {
-private:
-	static ImageManager* instance;
 public:
-	static ImageManager* GetInstance()
-	{
-		if (instance == nullptr)
-			instance = new ImageManager;
-		return instance;
-	}
+	Single(ImageManager)
 private:
 	map<string, Bitmap*> m_ImageList;
 public:

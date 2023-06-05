@@ -1,6 +1,6 @@
 #include "Object.h"
 
-map<string, Bitmap*>* Object::m_pImageList = nullptr;
+map<string, Bitmap*>* Object::ImageList = nullptr;
 
 Object::Object()
 {

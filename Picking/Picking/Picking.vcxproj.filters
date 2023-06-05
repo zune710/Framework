@@ -22,20 +22,26 @@
     <Filter Include="소스 파일\00.MainUpdate">
       <UniqueIdentifier>{473002c1-7e5a-496b-a605-7aeeaea3a11a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\Stage">
-      <UniqueIdentifier>{48b68c1d-a027-4e25-9ae2-5bbea5ebee03}</UniqueIdentifier>
+    <Filter Include="소스 파일\99.Manager">
+      <UniqueIdentifier>{0f8ab516-1d0a-48c6-86d7-5749f206fe1e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\Object">
-      <UniqueIdentifier>{439b9026-8299-4d18-b3f1-1b198304bc89}</UniqueIdentifier>
+    <Filter Include="소스 파일\99.Manager\ImageManager">
+      <UniqueIdentifier>{afdc7269-be03-496e-a23c-9fbdf37c39d9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\Object\Tile">
-      <UniqueIdentifier>{e6948450-fb6b-43e6-9fca-3ef5350ebde2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\Bitmap">
+    <Filter Include="소스 파일\99.Manager\ImageManager\Bitmap">
       <UniqueIdentifier>{a8fb3768-d70c-433d-9391-37939f5ba005}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\ImageManager">
-      <UniqueIdentifier>{afdc7269-be03-496e-a23c-9fbdf37c39d9}</UniqueIdentifier>
+    <Filter Include="소스 파일\99.Manager\SceneManager">
+      <UniqueIdentifier>{7c7b333d-9a31-476d-b799-cddc967b2daf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\01.Object">
+      <UniqueIdentifier>{439b9026-8299-4d18-b3f1-1b198304bc89}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\01.Object\Tile">
+      <UniqueIdentifier>{e6948450-fb6b-43e6-9fca-3ef5350ebde2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\02.Stage">
+      <UniqueIdentifier>{48b68c1d-a027-4e25-9ae2-5bbea5ebee03}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -58,22 +64,28 @@
       <Filter>소스 파일\00.MainUpdate</Filter>
     </ClInclude>
     <ClInclude Include="Stage.h">
-      <Filter>소스 파일\Stage</Filter>
+      <Filter>소스 파일\02.Stage</Filter>
     </ClInclude>
     <ClInclude Include="Object.h">
-      <Filter>소스 파일\Object</Filter>
+      <Filter>소스 파일\01.Object</Filter>
     </ClInclude>
     <ClInclude Include="Tile.h">
-      <Filter>소스 파일\Object\Tile</Filter>
+      <Filter>소스 파일\01.Object\Tile</Filter>
     </ClInclude>
     <ClInclude Include="Struct.h">
       <Filter>헤더 파일\Include</Filter>
     </ClInclude>
     <ClInclude Include="Bitmap.h">
-      <Filter>소스 파일\Bitmap</Filter>
+      <Filter>소스 파일\99.Manager\ImageManager\Bitmap</Filter>
     </ClInclude>
     <ClInclude Include="ImageManager.h">
-      <Filter>소스 파일\ImageManager</Filter>
+      <Filter>소스 파일\99.Manager\ImageManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Enum.h">
+      <Filter>헤더 파일\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>소스 파일\99.Manager\SceneManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -84,19 +96,22 @@
       <Filter>소스 파일\00.MainUpdate</Filter>
     </ClCompile>
     <ClCompile Include="Stage.cpp">
-      <Filter>소스 파일\Stage</Filter>
+      <Filter>소스 파일\02.Stage</Filter>
     </ClCompile>
     <ClCompile Include="Object.cpp">
-      <Filter>소스 파일\Object</Filter>
+      <Filter>소스 파일\01.Object</Filter>
     </ClCompile>
     <ClCompile Include="Tile.cpp">
-      <Filter>소스 파일\Object\Tile</Filter>
+      <Filter>소스 파일\01.Object\Tile</Filter>
     </ClCompile>
     <ClCompile Include="Bitmap.cpp">
-      <Filter>소스 파일\Bitmap</Filter>
+      <Filter>소스 파일\99.Manager\ImageManager\Bitmap</Filter>
     </ClCompile>
     <ClCompile Include="ImageManager.cpp">
-      <Filter>소스 파일\ImageManager</Filter>
+      <Filter>소스 파일\99.Manager\ImageManager</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>소스 파일\99.Manager\SceneManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

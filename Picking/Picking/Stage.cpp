@@ -1,10 +1,8 @@
 #include "Stage.h"
 #include "Tile.h"
 #include "Bitmap.h"
-#include "Object.h"
-#include "ImageManager.h"
 
-Stage::Stage() : ImageList(nullptr)
+Stage::Stage()
 {
 }
 
@@ -15,59 +13,48 @@ Stage::~Stage()
 
 void Stage::Start()
 {
-	int x = 0;
-	int y = 0;
-	for (int i = 0; i < COUNT_X * COUNT_Y; ++i)
+	ImageList["Tile"] = (new Bitmap)->LoadBmp(L"../Resource/Tile.bmp");
+
+	for (int y = 0; y < COUNT_Y; ++y)
 	{
-		Object* object = new Tile;
-		object->Start();
-		object->SetPosition(
-			Vector3(object->GetScale().x * x + object->GetScale().x * 0.5f, 
-				object->GetScale().y * y + object->GetScale().y * 0.5f));
-		
-		++x;
-
-		if (x == COUNT_X)
+		for (int x = 0; x < COUNT_X; ++x)
 		{
-			x = 0;
-			++y;
+			Object* tile = new Tile;
+
+			tile->Start();
+			tile->SetPosition(Vector3(
+				(x * SCALE_X) + (SCALE_X * 0.5f), 
+				(y * SCALE_Y) + (SCALE_Y * 0.5f)));
+
+			TileList.push_back(tile);
 		}
-
-		ObjectList.push_back(object);
 	}
-	
 
-	ImageList = ImageManager::GetInstance()->GetList();
-
-	(*ImageList)["Tile"] = (new Bitmap)->LoadBmp(L"../Resource/Tile.bmp");
-
-	Object::SetImageList(ImageList);
+	Object::SetImageList(&ImageList);
 }
 
 void Stage::Update()
 {
-	for (list<Object*>::iterator iter = ObjectList.begin(); iter != ObjectList.end(); ++iter)
+	for (vector<Object*>::iterator iter = TileList.begin(); iter != TileList.end(); ++iter)
+	{
 		(*iter)->Update();
-
-	//object->Update();
+	}
 }
 
 void Stage::Render(HDC _hdc)
 {
-	for (list<Object*>::iterator iter = ObjectList.begin(); iter != ObjectList.end(); ++iter)
+	for (vector<Object*>::iterator iter = TileList.begin(); iter != TileList.end(); ++iter)
+	{
 		(*iter)->Render(_hdc);
-	
-	//object->Render(_hdc);
+	}
 }
 
 void Stage::Destroy()
 {
-	for (list<Object*>::iterator iter = ObjectList.begin(); iter != ObjectList.end(); ++iter)
+	for (vector<Object*>::iterator iter = TileList.begin(); iter != TileList.end(); ++iter)
 	{
 		delete (*iter);
 		(*iter) = nullptr;
 	}
-	
-	//delete object;
-	//object = nullptr;
+	TileList.clear();
 }

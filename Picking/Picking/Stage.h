@@ -6,9 +6,8 @@ class Object;
 class Stage
 {
 private:
-	//Object* object;
-	map<string, Bitmap*>* ImageList;
-	list<Object*> ObjectList;
+	map<string, Bitmap*> ImageList;
+	vector<Object*> TileList;
 public:
 	void Start();
 	void Update();

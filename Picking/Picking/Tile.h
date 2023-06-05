@@ -4,9 +4,8 @@
 class Tile : public Object
 {
 private:
-	int check;
-	int cntX, cntY;
-	string Key;
+	int hor;
+	int ver;
 public:
 	virtual void Start()override;
 	virtual void Update()override;
