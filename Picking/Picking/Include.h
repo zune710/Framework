@@ -33,25 +33,31 @@ private:						    \
 #define GetSingle(T) (*T::GetInstance())
 
 
-// ** 윈도우 창 크기
-#define WIDTH 1280
-#define HEIGHT 640
+
 
 // ** 타일 가로, 세로 크기
 #define SCALE_X 32.0f
 #define SCALE_Y 32.0f
 
 // ** 타일 가로, 세로 최대 개수
-#define COUNT_X (WIDTH/SCALE_X)
-#define COUNT_Y (WIDTH/SCALE_Y)
-
-/*
 #define COUNT_X 40
 #define COUNT_Y 20
 
+// ** 윈도우 창 크기
 #define WIDTH (SCALE_X * COUNT_X)
 #define HEIGHT (SCALE_Y * COUNT_Y)
+
+/*
+// ** 윈도우 창 크기
+#define WIDTH 1280
+#define HEIGHT 640
+
+// ** 타일 가로, 세로 최대 개수
+#define COUNT_X (WIDTH/SCALE_X)
+#define COUNT_Y (WIDTH/SCALE_Y)
 */
+
+
 
 // ** 타일 최대 개수
 const int MAX = int(COUNT_X * COUNT_Y);
