@@ -2,7 +2,7 @@
 #include "Tile.h"
 #include "Bitmap.h"
 
-Stage::Stage()
+Stage::Stage() : Result(0)
 {
 }
 
@@ -83,7 +83,7 @@ void Stage::Start()
 
 		// 오른쪽 위
 		index = TileList[i]->GetIndex() - COUNT_X + 1;
-		if (0 <= index && index < MAX && 
+		if (0 <= index &&
 			TileList[i]->GetPosition().x < TileList[index]->GetPosition().x &&
 			TileList[index]->GetOption() == 10)
 			++count;
@@ -109,7 +109,7 @@ void Stage::Start()
 
 		// 왼쪽 아래
 		index = TileList[i]->GetIndex() + COUNT_X - 1;
-		if (0 <= index && index < MAX && 
+		if (index < MAX && 
 			TileList[index]->GetPosition().x < TileList[i]->GetPosition().x &&
 			TileList[index]->GetOption() == 10)
 			++count;
