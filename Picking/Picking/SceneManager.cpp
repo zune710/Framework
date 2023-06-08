@@ -1,12 +1,10 @@
 #include "SceneManager.h"
 
-/*
-#include "Logo.h"
+//#include "Logo.h"
 #include "Menu.h"
 #include "Stage.h"
-*/
 
-SceneManager::SceneManager() //: SceneState(nullptr)
+SceneManager::SceneManager() : SceneState(nullptr)
 {
 }
 
@@ -17,15 +15,16 @@ SceneManager::~SceneManager()
 
 void SceneManager::SetScene(SCENEID _State)
 {
-	/*
 	if (SceneState != nullptr)
 		::Safe_Release(SceneState);  // ::붙여서 인라인 함수임을 보여준다.
 
 	switch (_State)
 	{
+	/*
 	case LOGO:
 		SceneState = new Logo;
 		break;
+	*/
 
 	case MENU:
 		SceneState = new Menu;
@@ -37,20 +36,19 @@ void SceneManager::SetScene(SCENEID _State)
 	}
 
 	SceneState->Start();
-	*/
 }
 
 void SceneManager::Update()
 {
-	//SceneState->Update();
+	SceneState->Update();
 }
 
 void SceneManager::Render(HDC hdc)
 {
-	//SceneState->Render(hdc);
+	SceneState->Render(hdc);
 }
 
 void SceneManager::Destroy()
 {
-	//::Safe_Release(SceneState);
+	::Safe_Release(SceneState);
 }

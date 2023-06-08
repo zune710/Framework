@@ -34,7 +34,6 @@ private:						    \
 
 
 
-
 // ** 타일 가로, 세로 크기
 #define SCALE_X 32.0f
 #define SCALE_Y 32.0f
@@ -45,7 +44,7 @@ private:						    \
 
 // ** 윈도우 창 크기
 #define WIDTH (SCALE_X * COUNT_X)
-#define HEIGHT (SCALE_Y * COUNT_Y)
+#define HEIGHT (SCALE_Y * COUNT_Y) + 64
 
 /*
 // ** 윈도우 창 크기

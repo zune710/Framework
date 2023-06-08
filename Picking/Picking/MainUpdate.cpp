@@ -1,4 +1,5 @@
 #include "MainUpdate.h"
+#include "SceneManager.h"
 #include "Stage.h"
 
 MainUpdate::MainUpdate() : m_hdc(NULL), stage(nullptr)
@@ -16,23 +17,21 @@ void MainUpdate::Start()
 	
 	srand((unsigned int)GetTickCount64());
 
-	stage = new Stage;
-	stage->Start();
+	GetSingle(SceneManager)->SetScene(STAGE);
 }
 
 void MainUpdate::Update()
 {
-	stage->Update();
+	GetSingle(SceneManager)->Update();
 }
 
 void MainUpdate::Render()
 {
 	//Rectangle(m_hdc, 0, 0, 1500, 1000);
-	stage->Render(m_hdc);
+	GetSingle(SceneManager)->Render(m_hdc);
 }
 
 void MainUpdate::Destroy()
 {
-	delete stage;
-	stage = nullptr;
+
 }

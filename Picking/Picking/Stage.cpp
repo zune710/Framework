@@ -1,6 +1,7 @@
 #include "Stage.h"
 #include "Tile.h"
 #include "Bitmap.h"
+#include "Button.h"
 
 Stage::Stage() : Result(0)
 {
@@ -17,6 +18,12 @@ void Stage::Start()
 	ImageList["Buffer"] = (new Bitmap)->LoadBmp(L"../Resource/Buffer.bmp");
 	ImageList["GameOver"] = (new Bitmap)->LoadBmp(L"../Resource/GameOver.bmp");
 	ImageList["GameClear"] = (new Bitmap)->LoadBmp(L"../Resource/GameClear.bmp");
+
+	ImageList["MenuBar"] = (new Bitmap)->LoadBmp(L"../Resource/MenuBar.bmp");
+	ImageList["Icon_GamePlay"] = (new Bitmap)->LoadBmp(L"../Resource/Icon_GamePlay.bmp");
+	ImageList["Icon_GameOver"] = (new Bitmap)->LoadBmp(L"../Resource/Icon_GameOver.bmp");
+	ImageList["Icon_GameClear"] = (new Bitmap)->LoadBmp(L"../Resource/Icon_GameClear.bmp");
+	ImageList["Restart"] = (new Bitmap)->LoadBmp(L"../Resource/Restart.bmp");
 
 	// 지뢰 개수
 	int mine = 150;
@@ -38,7 +45,7 @@ void Stage::Start()
 
 			tile->SetPosition(Vector3(
 				(x * SCALE_X) + (SCALE_X * 0.5f), 
-				(y * SCALE_Y) + (SCALE_Y * 0.5f)));
+				(y * SCALE_Y) + (SCALE_Y * 0.5f) + 64));
 
 			TileList.push_back(tile);
 		}
@@ -132,6 +139,10 @@ void Stage::Start()
 	}
 
 	Object::SetImageList(&ImageList);
+
+	Restart = new Button;
+	Restart->Start();
+	
 }
 
 void Stage::Update()
@@ -213,12 +224,27 @@ void Stage::Update()
 
 		Result = 2; // 게임 클리어
 	}
+
+	if(Restart)
+		Restart->Update();
+
 }
 
 void Stage::Render(HDC _hdc)
 {
 	for (vector<Object*>::iterator iter = TileList.begin(); iter != TileList.end(); ++iter)
 		(*iter)->Render(ImageList["Buffer"]->GetMemDC());
+
+	TransparentBlt(ImageList["Buffer"]->GetMemDC(),
+		0, 0,
+		WIDTH, 64,
+		ImageList["MenuBar"]->GetMemDC(),
+		0, 0,
+		WIDTH, 64,
+		RGB(255, 0, 255));
+
+	if (Restart)
+		Restart->Render(ImageList["Buffer"]->GetMemDC());
 
 	if (Result == 1)  // 지뢰 - Game Over
 	{
@@ -229,11 +255,11 @@ void Stage::Render(HDC _hdc)
 		}
 		
 		TransparentBlt(ImageList["Buffer"]->GetMemDC(),
-			int(WIDTH * 0.5f - 80), int(HEIGHT * 0.5f - 32),
-			160, 64,
-			ImageList["GameOver"]->GetMemDC(),
+			int(WIDTH * 0.5f - 22), 10,
+			44, 44,
+			ImageList["Icon_GameOver"]->GetMemDC(),
 			0, 0,
-			160, 64,
+			44, 44,
 			RGB(255, 0, 255));
 		
 		/*
@@ -249,18 +275,28 @@ void Stage::Render(HDC _hdc)
 	else if (Result == 2)
 	{
 		TransparentBlt(ImageList["Buffer"]->GetMemDC(),
-			int(WIDTH * 0.5f - 80), int(HEIGHT * 0.5f - 32),
-			160, 64,
-			ImageList["GameClear"]->GetMemDC(),
+			int(WIDTH * 0.5f - 22), 10,
+			44, 44,
+			ImageList["Icon_GameClear"]->GetMemDC(),
 			0, 0,
-			160, 64,
+			44, 44,
+			RGB(255, 0, 255));
+	}
+	else
+	{
+		TransparentBlt(ImageList["Buffer"]->GetMemDC(),
+			int(WIDTH * 0.5f - 22), 10,
+			44, 44,
+			ImageList["Icon_GamePlay"]->GetMemDC(),
+			0, 0,
+			44, 44,
 			RGB(255, 0, 255));
 	}
 		
 
 	BitBlt(_hdc,
 		0, 0,
-		int(COUNT_X * SCALE_X), int(COUNT_Y * SCALE_Y),
+		(int)WIDTH, (int)HEIGHT,
 		ImageList["Buffer"]->GetMemDC(),
 		0, 0, 
 		SRCCOPY);

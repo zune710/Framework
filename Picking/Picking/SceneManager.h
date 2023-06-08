@@ -1,14 +1,14 @@
 #pragma once
 #include "Include.h"
 
-//class Scene;
+class Scene;
 class SceneManager
 {
 public:
 	Single(SceneManager)
 
 private:
-	//Scene* SceneState;
+	Scene* SceneState;
 public:
 	void SetScene(SCENEID _State);
 	void Update();
